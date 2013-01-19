@@ -21,14 +21,17 @@ public:
   virtual ~MidiEventTimer() {}
 
   virtual void timerCallback() {
-    MidiMessage noteOffMessage;
-    noteOffMessage.allNotesOff(kOutputMidiChannel);
-    midiOutput->sendMessageNow(noteOffMessage);
+    midiOutput->sendMessageNow(message);
     stopTimer();
+  }
+
+  void setMessage(MidiMessage &message) {
+    this->message = message;
   }
 
 private:
   MidiOutput *midiOutput;
+  MidiMessage message;
 };
 
 class OutputDevice : public HowlDetectorCallback {
