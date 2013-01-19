@@ -4,7 +4,45 @@
               bundleIdentifier="com.teragonaudio.Arooo" jucerVersion="3.0.0"
               companyName="Teragon Audio">
   <MAINGROUP id="Bijdhi" name="Arooo">
+    <GROUP id="{4AF48955-5D5D-D35A-1AC0-94F186DBAAF1}" name="FFTReal">
+      <FILE id="QQWB7W" name="Array.h" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/Array.h"/>
+      <FILE id="WbrlMC" name="Array.hpp" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/Array.hpp"/>
+      <FILE id="FGgHB2" name="def.h" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/def.h"/>
+      <FILE id="QtYbEf" name="DynArray.h" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/DynArray.h"/>
+      <FILE id="nSCduz" name="DynArray.hpp" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/DynArray.hpp"/>
+      <FILE id="WQJQs7" name="FFTReal.h" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/FFTReal.h"/>
+      <FILE id="h27X7b" name="FFTReal.hpp" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/FFTReal.hpp"/>
+      <FILE id="HDvqgw" name="FFTRealFixLen.h" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/FFTRealFixLen.h"/>
+      <FILE id="b3qEx5" name="FFTRealFixLen.hpp" compile="0" resource="0"
+            file="Third-Party/FFTReal-2.11/ffft/FFTRealFixLen.hpp"/>
+      <FILE id="pVnjqi" name="FFTRealFixLenParam.h" compile="0" resource="0"
+            file="Third-Party/FFTReal-2.11/ffft/FFTRealFixLenParam.h"/>
+      <FILE id="UGRBp4" name="FFTRealPassDirect.h" compile="0" resource="0"
+            file="Third-Party/FFTReal-2.11/ffft/FFTRealPassDirect.h"/>
+      <FILE id="VFcan8" name="FFTRealPassDirect.hpp" compile="0" resource="0"
+            file="Third-Party/FFTReal-2.11/ffft/FFTRealPassDirect.hpp"/>
+      <FILE id="pGDDeF" name="FFTRealPassInverse.h" compile="0" resource="0"
+            file="Third-Party/FFTReal-2.11/ffft/FFTRealPassInverse.h"/>
+      <FILE id="mjMICj" name="FFTRealPassInverse.hpp" compile="0" resource="0"
+            file="Third-Party/FFTReal-2.11/ffft/FFTRealPassInverse.hpp"/>
+      <FILE id="GSTchQ" name="FFTRealSelect.h" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/FFTRealSelect.h"/>
+      <FILE id="nWMeUW" name="FFTRealSelect.hpp" compile="0" resource="0"
+            file="Third-Party/FFTReal-2.11/ffft/FFTRealSelect.hpp"/>
+      <FILE id="DjMp3H" name="FFTRealUseTrigo.h" compile="0" resource="0"
+            file="Third-Party/FFTReal-2.11/ffft/FFTRealUseTrigo.h"/>
+      <FILE id="fdbOXM" name="FFTRealUseTrigo.hpp" compile="0" resource="0"
+            file="Third-Party/FFTReal-2.11/ffft/FFTRealUseTrigo.hpp"/>
+      <FILE id="ZAsM0f" name="OscSinCos.h" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/OscSinCos.h"/>
+      <FILE id="axk7sL" name="OscSinCos.hpp" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/OscSinCos.hpp"/>
+    </GROUP>
     <GROUP id="{11AD44E5-1DAB-8713-3811-B5205B02D64B}" name="Source">
+      <FILE id="qUf5Od" name="Constants.h" compile="0" resource="1" file="Source/Constants.h"/>
+      <FILE id="fVQAo0" name="FFTWrapper.cpp" compile="1" resource="0" file="Source/FFTWrapper.cpp"/>
+      <FILE id="bSBkGM" name="FFTWrapper.h" compile="0" resource="0" file="Source/FFTWrapper.h"/>
+      <FILE id="WOdcbq" name="InputProcessor.cpp" compile="1" resource="0"
+            file="Source/InputProcessor.cpp"/>
+      <FILE id="mrcJGo" name="InputProcessor.h" compile="0" resource="0"
+            file="Source/InputProcessor.h"/>
       <FILE id="ifMLlV" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
   </MAINGROUP>
@@ -15,9 +53,13 @@
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
   </MODULES>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" juceFolder="../../sdk/juce/modules">
+    <XCODE_MAC targetFolder="Builds/MacOSX" juceFolder="../../sdk/juce/modules"
+               extraCompilerFlags="-I../../Third-Party/FFTReal-2.11">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
                        isDebug="1" optimisation="1" targetName="Arooo"/>

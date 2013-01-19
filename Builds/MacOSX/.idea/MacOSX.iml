@@ -7,6 +7,12 @@
     <content url="file://$MODULE_DIR$/../../JuceLibraryCode/AppConfig.h">
       <sourceFolder url="file://$MODULE_DIR$/../../JuceLibraryCode/AppConfig.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../JuceLibraryCode/BinaryData.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../JuceLibraryCode/BinaryData.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../JuceLibraryCode/BinaryData.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../JuceLibraryCode/BinaryData.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../JuceLibraryCode/JuceHeader.h">
       <sourceFolder url="file://$MODULE_DIR$/../../JuceLibraryCode/JuceHeader.h" isTestSource="false" />
     </content>
@@ -2005,8 +2011,83 @@
     <content url="file://$MODULE_DIR$/../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_TopLevelWindow.h">
       <sourceFolder url="file://$MODULE_DIR$/../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_TopLevelWindow.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../Source/Constants.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/Constants.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/FFTWrapper.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/FFTWrapper.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/FFTWrapper.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/FFTWrapper.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/InputProcessor.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/InputProcessor.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/InputProcessor.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/InputProcessor.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../Source/Main.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../Source/Main.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/Array.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/Array.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/Array.hpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/Array.hpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/DynArray.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/DynArray.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/DynArray.hpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/DynArray.hpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTReal.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTReal.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTReal.hpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTReal.hpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealFixLen.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealFixLen.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealFixLen.hpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealFixLen.hpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealFixLenParam.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealFixLenParam.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealPassDirect.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealPassDirect.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealPassDirect.hpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealPassDirect.hpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealPassInverse.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealPassInverse.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealPassInverse.hpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealPassInverse.hpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealSelect.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealSelect.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealSelect.hpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealSelect.hpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealUseTrigo.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealUseTrigo.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealUseTrigo.hpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/FFTRealUseTrigo.hpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/OscSinCos.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/OscSinCos.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/OscSinCos.hpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/OscSinCos.hpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/def.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/def.h" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
