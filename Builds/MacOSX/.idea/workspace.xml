@@ -5,11 +5,13 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Arooo.jucer" afterPath="$PROJECT_DIR$/../../Arooo.jucer" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Linux/Makefile" afterPath="$PROJECT_DIR$/../Linux/Makefile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/MacOSX.iml" afterPath="$PROJECT_DIR$/.idea/MacOSX.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Arooo.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/Arooo.xcodeproj/project.pbxproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../JuceLibraryCode/AppConfig.h" afterPath="$PROJECT_DIR$/../../JuceLibraryCode/AppConfig.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../JuceLibraryCode/JuceHeader.h" afterPath="$PROJECT_DIR$/../../JuceLibraryCode/JuceHeader.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Source/Main.cpp" afterPath="$PROJECT_DIR$/../../Source/Main.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../JuceLibraryCode/BinaryData.cpp" afterPath="$PROJECT_DIR$/../../JuceLibraryCode/BinaryData.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../JuceLibraryCode/BinaryData.h" afterPath="$PROJECT_DIR$/../../JuceLibraryCode/BinaryData.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Source/Constants.h" afterPath="$PROJECT_DIR$/../../Source/Constants.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Source/InputProcessor.cpp" afterPath="$PROJECT_DIR$/../../Source/InputProcessor.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Source/InputProcessor.h" afterPath="$PROJECT_DIR$/../../Source/InputProcessor.h" />
     </list>
     <ignored path="Arooo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,24 +33,20 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="InputProcessor.h" pinned="false" current="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/../../Source/InputProcessor.h">
+          <file leaf-file-name="juce_audio_devices.h" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/../../JuceLibraryCode/modules/juce_audio_devices/juce_audio_devices.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="33" column="0" selection-start="901" selection-end="901" vertical-scroll-proportion="0.6243243">
-                  <folding>
-                    <element signature="e#329#371#0" expanded="true" />
-                  </folding>
+                <state line="105" column="46" selection-start="3188" selection-end="3188" vertical-scroll-proportion="0.0">
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="FFTWrapper.cpp" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/../../Source/FFTWrapper.cpp">
+          <file leaf-file-name="OutputDevice.h" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/../../Source/OutputDevice.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="26" column="0" selection-start="560" selection-end="560" vertical-scroll-proportion="0.0">
-                  <folding>
-                    <element signature="e#249#272#0" expanded="true" />
-                  </folding>
+                <state line="17" column="10" selection-start="423" selection-end="423" vertical-scroll-proportion="0.0">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -57,6 +55,33 @@
             <entry file="file://$PROJECT_DIR$/../../Source/Main.cpp">
               <provider selected="true" editor-type-id="text-editor">
                 <state line="38" column="19" selection-start="1066" selection-end="1066" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="InputProcessor.h" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/../../Source/InputProcessor.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="14" column="22" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="HowlDetector.cpp" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/../../Source/HowlDetector.cpp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="37" column="0" selection-start="793" selection-end="793" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Constants.h" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/../../Source/Constants.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="33" column="30" selection-start="1057" selection-end="1057" vertical-scroll-proportion="0.61354584">
                   <folding />
                 </state>
               </provider>
@@ -75,10 +100,28 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="InputProcessor.cpp" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="HowlDetector.h" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/../../Source/HowlDetector.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="9" column="0" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="OutputDevice.cpp" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/../../Source/OutputDevice.cpp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="46" column="52" selection-start="1198" selection-end="1198" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="InputProcessor.cpp" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/../../Source/InputProcessor.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="69" column="35" selection-start="1751" selection-end="1751" vertical-scroll-proportion="0.92432433">
+                <state line="52" column="26" selection-start="1188" selection-end="1188" vertical-scroll-proportion="0.48783785">
                   <folding />
                 </state>
               </provider>
@@ -102,8 +145,13 @@
         <option value="$PROJECT_DIR$/../../Source/Main.cpp" />
         <option value="$PROJECT_DIR$/../../Source/FFTWrapper.h" />
         <option value="$PROJECT_DIR$/../../Source/FFTWrapper.cpp" />
+        <option value="$PROJECT_DIR$/../../Source/HowlDetector.h" />
+        <option value="$PROJECT_DIR$/../../Source/HowlDetector.cpp" />
+        <option value="$PROJECT_DIR$/../../Source/OutputDevice.h" />
         <option value="$PROJECT_DIR$/../../Source/InputProcessor.h" />
+        <option value="$PROJECT_DIR$/../../Source/OutputDevice.cpp" />
         <option value="$PROJECT_DIR$/../../Source/InputProcessor.cpp" />
+        <option value="$PROJECT_DIR$/../../Source/Constants.h" />
       </list>
     </option>
   </component>
@@ -138,6 +186,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="DirectoryView.Xcode" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -181,23 +230,20 @@
               <option name="myItemId" value="Arooo" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FFTReal" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="DirectoryView.Xcode" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Arooo.xcodeproj" />
-    <property name="options.searchVisible" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="GoToClass.includeJavaFiles" value="false" />
   </component>
   <component name="RunManager" selected="Application.Arooo">
     <configuration default="true" type="AppleRunConfiguration" factoryName="Application" PROJECT_NAME="Arooo" TARGET_NAME="Arooo" CONFIG_NAME="Debug" PASS_PARENT_ENVS="FALSE" RUN_TARGET_PROJECT_NAME="Arooo" RUN_TARGET_NAME="Arooo" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
@@ -206,6 +252,8 @@
     </configuration>
     <configuration default="false" name="Arooo" type="AppleRunConfiguration" factoryName="Application" SCHEME_NAME="Arooo" PROJECT_NAME="Arooo" TARGET_NAME="Arooo" CONFIG_NAME="Debug" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" RUN_TARGET_PROJECT_NAME="Arooo" RUN_TARGET_NAME="Arooo" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
       <envs />
+      <RunnerSettings RunnerId="AppRunner" />
+      <ConfigurationWrapper RunnerId="AppRunner" />
       <method />
     </configuration>
     <list size="1">
@@ -240,22 +288,23 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1439" height="874" extended-state="0" />
+    <frame x="0" y="22" width="1439" height="874" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16172317" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16172317" sideWeight="0.6705128" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32948717" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32948717" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -314,54 +363,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../Source/InputProcessor.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="47" selection-start="420" selection-end="420" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#329#371#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Source/FFTWrapper.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="374" selection-end="374" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#249#272#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Source/InputProcessor.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="282" selection-end="282" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Source/FFTWrapper.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="16" selection-start="454" selection-end="454" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Source/Main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="18" selection-start="287" selection-end="330" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Source/InputProcessor.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="8" selection-start="763" selection-end="763" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#329#371#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../Source/InputProcessor.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="1" selection-start="565" selection-end="565" vertical-scroll-proportion="0.0">
@@ -379,9 +380,7 @@
     <entry file="file://$PROJECT_DIR$/../../Source/InputProcessor.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="8" selection-start="763" selection-end="763" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#329#371#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -399,9 +398,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Source/Main.cpp">
+    <entry file="file://$PROJECT_DIR$/../../Source/FFTWrapper.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="19" selection-start="1066" selection-end="1066" vertical-scroll-proportion="0.0">
+        <state line="19" column="1" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../JuceLibraryCode/modules/juce_audio_devices/juce_audio_devices.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="105" column="46" selection-start="3188" selection-end="3188" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -413,27 +419,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Source/FFTWrapper.cpp">
+    <entry file="file://$PROJECT_DIR$/../../Source/HowlDetector.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="560" selection-end="560" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#249#272#0" expanded="true" />
-          </folding>
+        <state line="9" column="0" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../Source/InputProcessor.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="0" selection-start="901" selection-end="901" vertical-scroll-proportion="0.6243243">
-          <folding>
-            <element signature="e#329#371#0" expanded="true" />
-          </folding>
+        <state line="14" column="22" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Source/Main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="19" selection-start="1066" selection-end="1066" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Source/OutputDevice.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="10" selection-start="423" selection-end="423" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Source/OutputDevice.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="52" selection-start="1198" selection-end="1198" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Source/HowlDetector.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="0" selection-start="793" selection-end="793" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../Source/InputProcessor.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="35" selection-start="1751" selection-end="1751" vertical-scroll-proportion="0.92432433">
+        <state line="52" column="26" selection-start="1188" selection-end="1188" vertical-scroll-proportion="0.48783785">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Source/Constants.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="30" selection-start="1057" selection-end="1057" vertical-scroll-proportion="0.61354584">
           <folding />
         </state>
       </provider>

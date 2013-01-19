@@ -36,6 +36,12 @@
       <FILE id="axk7sL" name="OscSinCos.hpp" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/OscSinCos.hpp"/>
     </GROUP>
     <GROUP id="{11AD44E5-1DAB-8713-3811-B5205B02D64B}" name="Source">
+      <FILE id="xJKEIY" name="OutputDevice.cpp" compile="1" resource="0"
+            file="Source/OutputDevice.cpp"/>
+      <FILE id="cHfXXC" name="OutputDevice.h" compile="0" resource="0" file="Source/OutputDevice.h"/>
+      <FILE id="lpRcR8" name="HowlDetector.cpp" compile="1" resource="0"
+            file="Source/HowlDetector.cpp"/>
+      <FILE id="NzoT4y" name="HowlDetector.h" compile="0" resource="0" file="Source/HowlDetector.h"/>
       <FILE id="qUf5Od" name="Constants.h" compile="0" resource="1" file="Source/Constants.h"/>
       <FILE id="fVQAo0" name="FFTWrapper.cpp" compile="1" resource="0" file="Source/FFTWrapper.cpp"/>
       <FILE id="bSBkGM" name="FFTWrapper.h" compile="0" resource="0" file="Source/FFTWrapper.h"/>

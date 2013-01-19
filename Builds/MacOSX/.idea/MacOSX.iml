@@ -2020,6 +2020,12 @@
     <content url="file://$MODULE_DIR$/../../Source/FFTWrapper.h">
       <sourceFolder url="file://$MODULE_DIR$/../../Source/FFTWrapper.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../Source/HowlDetector.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/HowlDetector.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/HowlDetector.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/HowlDetector.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../Source/InputProcessor.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../Source/InputProcessor.cpp" isTestSource="false" />
     </content>
@@ -2028,6 +2034,12 @@
     </content>
     <content url="file://$MODULE_DIR$/../../Source/Main.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../Source/Main.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/OutputDevice.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/OutputDevice.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/OutputDevice.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/OutputDevice.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/Array.h">
       <sourceFolder url="file://$MODULE_DIR$/../../Third-Party/FFTReal-2.11/ffft/Array.h" isTestSource="false" />
