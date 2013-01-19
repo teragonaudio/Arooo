@@ -34,6 +34,6 @@ static const int kHowlDetectionNumPointsNeeded = 15;
 static const int kOutputMidiChannel = 1;
 static const int kOutputMidiNoteNumber = 64;
 static const int kOutputMidiNoteVelocity = 127;
-static const int kOutputMidiNoteDurationMs = 250;
+static const int kOutputMidiNoteDurationMs = 1000;
 
 #endif  // __CONSTANTS_448F6882__
