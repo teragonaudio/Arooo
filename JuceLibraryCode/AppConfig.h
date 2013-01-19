@@ -22,11 +22,14 @@
 // [END_USER_CODE_SECTION]
 
 //==============================================================================
-#define JUCE_MODULE_AVAILABLE_juce_audio_basics       1
-#define JUCE_MODULE_AVAILABLE_juce_audio_devices      1
-#define JUCE_MODULE_AVAILABLE_juce_audio_formats      1
-#define JUCE_MODULE_AVAILABLE_juce_core               1
-#define JUCE_MODULE_AVAILABLE_juce_events             1
+#define JUCE_MODULE_AVAILABLE_juce_audio_basics         1
+#define JUCE_MODULE_AVAILABLE_juce_audio_devices        1
+#define JUCE_MODULE_AVAILABLE_juce_audio_formats        1
+#define JUCE_MODULE_AVAILABLE_juce_core                 1
+#define JUCE_MODULE_AVAILABLE_juce_data_structures      1
+#define JUCE_MODULE_AVAILABLE_juce_events               1
+#define JUCE_MODULE_AVAILABLE_juce_graphics             1
+#define JUCE_MODULE_AVAILABLE_juce_gui_basics           1
 
 //==============================================================================
 // juce_audio_devices flags:
@@ -99,6 +102,36 @@
 
 #ifndef    JUCE_DONT_AUTOLINK_TO_WIN32_LIBRARIES
  //#define JUCE_DONT_AUTOLINK_TO_WIN32_LIBRARIES
+#endif
+
+//==============================================================================
+// juce_graphics flags:
+
+#ifndef    JUCE_USE_COREIMAGE_LOADER
+ //#define JUCE_USE_COREIMAGE_LOADER
+#endif
+
+#ifndef    JUCE_USE_DIRECTWRITE
+ //#define JUCE_USE_DIRECTWRITE
+#endif
+
+//==============================================================================
+// juce_gui_basics flags:
+
+#ifndef    JUCE_ENABLE_REPAINT_DEBUGGING
+ //#define JUCE_ENABLE_REPAINT_DEBUGGING
+#endif
+
+#ifndef    JUCE_USE_XSHM
+ //#define JUCE_USE_XSHM
+#endif
+
+#ifndef    JUCE_USE_XRENDER
+ //#define JUCE_USE_XRENDER
+#endif
+
+#ifndef    JUCE_USE_XCURSOR
+ //#define JUCE_USE_XCURSOR
 #endif
 
 
