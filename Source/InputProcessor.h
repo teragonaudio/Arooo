@@ -14,6 +14,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Constants.h"
 #include "FFTWrapper.h"
+#include "HowlDetector.h"
+#include "OutputDevice.h"
 
 class InputProcessor : public AudioIODeviceCallback {
 public:
@@ -29,8 +31,9 @@ protected:
 
 private:
   AudioDeviceManager *deviceManager;
-  AudioIODevice *inputDevice;
+  OutputDevice *outputDevice;
 
+  HowlDetector *howlDetector;
   FFTWrapper *fftWrapper;
   float *fftData;
 };
