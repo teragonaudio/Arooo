@@ -15,32 +15,37 @@
 
 HowlDetector::HowlDetector() {
   callback = NULL;
-  resetNumHits();
+  resetBucketPoints();
 }
 
 HowlDetector::~HowlDetector() {
 
 }
 
-void HowlDetector::resetNumHits() {
-  for (int i = 0; i < BUCKET_NUM_INDEXES; ++i) {
-    numHits[i] = 0;
+void HowlDetector::resetBucketPoints() {
+  for (int i = 0; i < kHowlBucketNumIndexes; ++i) {
+    bucketPoints[i] = 0;
   }
 }
 
 void HowlDetector::processFFTData(float const *fftData) {
   int howlDetectionPoints = 0;
-  for (int i = 0; i < BUCKET_NUM_INDEXES; ++i) {
-    if (fftData[kHowlBucketIndexes[i]] >= BUCKET_MINIMUM_STRENGTH) {
-      numHits[i]++;
+  for (int i = 0; i < kHowlBucketNumIndexes; ++i) {
+    if (fftData[kHowlBucketIndexes[i]] >= kBucketMinimumStrength) {
+      //printf("Bucket %d has potential hit, %d total\n", kHowlBucketIndexes[i], bucketPoints[i]);
+      bucketPoints[i] += 2;
+    }
+    else {
+      if (bucketPoints[i] > 0) {
+        //printf("Bucket %d no longer hitting, %d total\n", kHowlBucketIndexes[i], bucketPoints[i]);
+        bucketPoints[i]--;
+      }
     }
 
-    if (numHits[i] > HOWL_FOUND_NUM_HITS) {
-      howlDetectionPoints++;
-    }
+    howlDetectionPoints += bucketPoints[i];
   }
 
-  if (howlDetectionPoints == BUCKET_NUM_INDEXES) {
+  if (howlDetectionPoints > kHowlDetectionNumPointsNeeded) {
     howlDetected();
   }
 }
@@ -50,7 +55,7 @@ void HowlDetector::howlDetected() {
   if (callback != NULL) {
     callback->howlDetected();
   }
-  resetNumHits();
+  resetBucketPoints();
 }
 
 void HowlDetector::setCallback(HowlDetectorCallback *callback) {

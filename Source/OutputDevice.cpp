@@ -50,8 +50,8 @@ void OutputDevice::initialize() {
 
 void OutputDevice::howlDetected() {
   if (midiOutput) {
-    MidiMessage noteOnMessage = MidiMessage::noteOn(OUTPUT_MIDI_CHANNEL, OUTPUT_MIDI_NOTE_NUMBER, (uint8)OUTPUT_MIDI_NOTE_VELOCITY);
+    MidiMessage noteOnMessage = MidiMessage::noteOn(kOutputMidiChannel, kOutputMidiNoteNumber, (uint8) kOutputMidiNoteVelocity);
     midiOutput->sendMessageNow(noteOnMessage);
-    midiEventTimer->startTimer(OUTPUT_NOTE_LENGTH_IN_MS);
+    midiEventTimer->startTimer(kOutputMidiNoteDurationMs);
   }
 }

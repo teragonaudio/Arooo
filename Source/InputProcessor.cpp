@@ -49,7 +49,7 @@ void InputProcessor::initialize() {
   howlDetector = new HowlDetector();
   howlDetector->setCallback(outputDevice);
   fftWrapper = new FFTWrapper();
-  fftData = new float[BUFFER_SIZE];
+  fftData = new float[kBufferSize];
   printf("Initialized\n");
 }
 
@@ -65,7 +65,7 @@ void InputProcessor::audioDeviceIOCallback(float const **inputChannelData, int n
   float **outputChannelData, int numOutputChannels, int numSamples) {
   if (fftData) {
     // Clear out old FFT data, just to be sure
-    for (int i = 0; i < BUFFER_SIZE; ++i) {
+    for (int i = 0; i < kBufferSize; ++i) {
       fftData[i] = 0.0f;
     }
     // Force mono, we don't really care about stereo processing
@@ -73,6 +73,6 @@ void InputProcessor::audioDeviceIOCallback(float const **inputChannelData, int n
     howlDetector->processFFTData(fftData);
   }
   else {
-    printf("Waiting for initialization...");
+    printf("Waiting for initialization... ");
   }
 }

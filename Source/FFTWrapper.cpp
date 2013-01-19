@@ -13,9 +13,9 @@
 
 FFTWrapper::FFTWrapper() {
 #if USE_FFT_FIXED_SIZE
-  fftProcessor = new ffft::FFTRealFixLen<BUFFER_SIZE_BASE>;
+  fftProcessor = new ffft::FFTRealFixLen<kBufferSizeBase2>;
 #else
-  fftProcessor = new ffft::FFTReal<float>(BUFFER_SIZE);
+  fftProcessor = new ffft::FFTReal<float>(kBufferSize);
 #endif
 }
 

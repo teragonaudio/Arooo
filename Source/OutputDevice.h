@@ -22,7 +22,7 @@ public:
 
   virtual void timerCallback() {
     MidiMessage noteOffMessage;
-    noteOffMessage.allNotesOff(OUTPUT_MIDI_CHANNEL);
+    noteOffMessage.allNotesOff(kOutputMidiChannel);
     midiOutput->sendMessageNow(noteOffMessage);
     stopTimer();
   }

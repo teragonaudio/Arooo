@@ -32,10 +32,10 @@ public:
 
 private:
   void howlDetected();
-  void resetNumHits();
+  void resetBucketPoints();
 
   HowlDetectorCallback *callback;
-  int numHits[BUCKET_NUM_INDEXES];
+  int bucketPoints[kHowlBucketNumIndexes];
 };
 
 #endif  // __HOWLDETECTOR_H_F359D429__
