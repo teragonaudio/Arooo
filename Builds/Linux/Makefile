@@ -43,11 +43,11 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS := \
-  $(OBJDIR)/OutputDevice_c1bb9bc0.o \
-  $(OBJDIR)/HowlDetector_a7e4f58b.o \
   $(OBJDIR)/FFTWrapper_4d6ba048.o \
+  $(OBJDIR)/HowlDetector_a7e4f58b.o \
   $(OBJDIR)/InputProcessor_d28a0f71.o \
   $(OBJDIR)/Main_90ebc5c2.o \
+  $(OBJDIR)/OutputDevice_c1bb9bc0.o \
   $(OBJDIR)/BinaryData_ce4232d4.o \
   $(OBJDIR)/juce_audio_basics_2442e4ea.o \
   $(OBJDIR)/juce_audio_devices_a4c8a728.o \
@@ -77,19 +77,14 @@ strip:
 	@echo Stripping Arooo
 	-@strip --strip-unneeded $(OUTDIR)/$(TARGET)
 
-$(OBJDIR)/OutputDevice_c1bb9bc0.o: ../../Source/OutputDevice.cpp
+$(OBJDIR)/FFTWrapper_4d6ba048.o: ../../Source/FFTWrapper.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling OutputDevice.cpp"
+	@echo "Compiling FFTWrapper.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/HowlDetector_a7e4f58b.o: ../../Source/HowlDetector.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling HowlDetector.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/FFTWrapper_4d6ba048.o: ../../Source/FFTWrapper.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling FFTWrapper.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/InputProcessor_d28a0f71.o: ../../Source/InputProcessor.cpp
@@ -100,6 +95,11 @@ $(OBJDIR)/InputProcessor_d28a0f71.o: ../../Source/InputProcessor.cpp
 $(OBJDIR)/Main_90ebc5c2.o: ../../Source/Main.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling Main.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/OutputDevice_c1bb9bc0.o: ../../Source/OutputDevice.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling OutputDevice.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/BinaryData_ce4232d4.o: ../../JuceLibraryCode/BinaryData.cpp

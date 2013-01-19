@@ -4,6 +4,9 @@
               bundleIdentifier="com.teragonaudio.Arooo" jucerVersion="3.0.0"
               companyName="Teragon Audio">
   <MAINGROUP id="Bijdhi" name="Arooo">
+    <GROUP id="{7F8468CF-A70E-F172-FB84-8DC1A1EAFA53}" name="Graphics">
+      <FILE id="OiIfL5" name="icon.png" compile="0" resource="1" file="Graphics/icon.png"/>
+    </GROUP>
     <GROUP id="{4AF48955-5D5D-D35A-1AC0-94F186DBAAF1}" name="FFTReal">
       <FILE id="QQWB7W" name="Array.h" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/Array.h"/>
       <FILE id="WbrlMC" name="Array.hpp" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/Array.hpp"/>
@@ -36,20 +39,20 @@
       <FILE id="axk7sL" name="OscSinCos.hpp" compile="0" resource="0" file="Third-Party/FFTReal-2.11/ffft/OscSinCos.hpp"/>
     </GROUP>
     <GROUP id="{11AD44E5-1DAB-8713-3811-B5205B02D64B}" name="Source">
-      <FILE id="xJKEIY" name="OutputDevice.cpp" compile="1" resource="0"
-            file="Source/OutputDevice.cpp"/>
-      <FILE id="cHfXXC" name="OutputDevice.h" compile="0" resource="0" file="Source/OutputDevice.h"/>
-      <FILE id="lpRcR8" name="HowlDetector.cpp" compile="1" resource="0"
-            file="Source/HowlDetector.cpp"/>
-      <FILE id="NzoT4y" name="HowlDetector.h" compile="0" resource="0" file="Source/HowlDetector.h"/>
       <FILE id="qUf5Od" name="Constants.h" compile="0" resource="1" file="Source/Constants.h"/>
       <FILE id="fVQAo0" name="FFTWrapper.cpp" compile="1" resource="0" file="Source/FFTWrapper.cpp"/>
       <FILE id="bSBkGM" name="FFTWrapper.h" compile="0" resource="0" file="Source/FFTWrapper.h"/>
+      <FILE id="lpRcR8" name="HowlDetector.cpp" compile="1" resource="0"
+            file="Source/HowlDetector.cpp"/>
+      <FILE id="NzoT4y" name="HowlDetector.h" compile="0" resource="0" file="Source/HowlDetector.h"/>
       <FILE id="WOdcbq" name="InputProcessor.cpp" compile="1" resource="0"
             file="Source/InputProcessor.cpp"/>
       <FILE id="mrcJGo" name="InputProcessor.h" compile="0" resource="0"
             file="Source/InputProcessor.h"/>
       <FILE id="ifMLlV" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="xJKEIY" name="OutputDevice.cpp" compile="1" resource="0"
+            file="Source/OutputDevice.cpp"/>
+      <FILE id="cHfXXC" name="OutputDevice.h" compile="0" resource="0" file="Source/OutputDevice.h"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
@@ -65,7 +68,8 @@
   </MODULES>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" juceFolder="../../sdk/juce/modules"
-               extraCompilerFlags="-I../../Third-Party/FFTReal-2.11">
+               extraCompilerFlags="-I../../Third-Party/FFTReal-2.11" smallIcon="OiIfL5"
+               bigIcon="OiIfL5">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
                        isDebug="1" optimisation="1" targetName="Arooo"/>
