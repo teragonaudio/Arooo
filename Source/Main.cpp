@@ -9,44 +9,54 @@
 */
 
 #include "../JuceLibraryCode/JuceHeader.h"
-
+#include "InputProcessor.h"
 
 //==============================================================================
-class AroooApplication  : public JUCEApplication
-{
+class AroooApplication : public JUCEApplication {
 public:
-    //==============================================================================
-    AroooApplication() {}
+  //==============================================================================
+  AroooApplication() {
+    inputProcessor = new InputProcessor();
+  }
 
-    const String getApplicationName()       { return ProjectInfo::projectName; }
-    const String getApplicationVersion()    { return ProjectInfo::versionString; }
-    bool moreThanOneInstanceAllowed()       { return true; }
+  const String getApplicationName() {
+    return ProjectInfo::projectName;
+  }
 
-    //==============================================================================
-    void initialise (const String& commandLine)
-    {
-        // Add your application's initialisation code here..
+  const String getApplicationVersion() {
+    return ProjectInfo::versionString;
+  }
+
+  bool moreThanOneInstanceAllowed() {
+    return false;
+  }
+
+  //==============================================================================
+  void initialise(const String& commandLine) {
+    inputProcessor->initialize();
+  }
+
+  void shutdown() {
+    if (inputProcessor) {
+      delete inputProcessor;
     }
+  }
 
-    void shutdown()
-    {
-        // Add your application's shutdown code here..
-    }
+  //==============================================================================
+  void systemRequestedQuit() {
+    // This is called when the app is being asked to quit: you can ignore this
+    // request and let the app carry on running, or call quit() to allow the app to close.
+    quit();
+  }
 
-    //==============================================================================
-    void systemRequestedQuit()
-    {
-        // This is called when the app is being asked to quit: you can ignore this
-        // request and let the app carry on running, or call quit() to allow the app to close.
-        quit();
-    }
+  void anotherInstanceStarted(const String& commandLine) {
+    // When another instance of the app is launched while this one is running,
+    // this method is invoked, and the commandLine parameter tells you what
+    // the other instance's command-line arguments were.
+  }
 
-    void anotherInstanceStarted (const String& commandLine)
-    {
-        // When another instance of the app is launched while this one is running,
-        // this method is invoked, and the commandLine parameter tells you what
-        // the other instance's command-line arguments were.
-    }
+private:
+  InputProcessor *inputProcessor;
 };
 
 //==============================================================================
