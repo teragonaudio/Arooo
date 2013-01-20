@@ -11,7 +11,15 @@
 #ifndef __CONSTANTS_H_448F6882__
 #define __CONSTANTS_H_448F6882__
 
+// Use fixed FFT buffer sizes at compile time. Offers a large performance
+// improvement, but slower compile times and so is disabled for now.
+#define USE_FFT_FIXED_SIZE 0
+
+// How large of a buffer size we should request from the audio device. Note
+// that this also determines the FFT buffer sizes algorithm, and hence must
+// be given at compile time.
 static const int kBufferSize = 1024;
+// Required if using a fixed FFT size
 static const int kBufferSizeBase2 = 10; // 2^10
 
 static const float kSampleRate = 44100.0f;
@@ -28,9 +36,10 @@ static const float kBucketMinimumStrength = 20.0f; // TODO: Needs tweaking
 static const int kHowlBucketIndexes[] = { 14, 32, 526 };
 static const int kHowlBucketNumIndexes = 3;
 
-// If all buckets have at least this many hits, a howl has been found
+// If all buckets contain at least this many hits, a howl has been found
 static const int kHowlDetectionNumPointsNeeded = 15;
 
+// Output note settings
 static const int kOutputMidiChannel = 1;
 static const int kOutputMidiNoteNumber = 64;
 static const int kOutputMidiNoteVelocity = 127;
