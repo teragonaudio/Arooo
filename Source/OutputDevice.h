@@ -17,11 +17,12 @@
 
 class MidiEventTimer : public Timer {
 public:
-  MidiEventTimer(MidiOutput *output) : Timer(), midiOutput(output) {}
+  MidiEventTimer(MidiOutput *output) : Timer(), midiOutput(output), notePlaying(NULL) {}
   virtual ~MidiEventTimer() {}
 
   virtual void timerCallback() {
     midiOutput->sendMessageNow(message);
+    if (notePlaying) { *notePlaying = false; }
     stopTimer();
   }
 
@@ -29,9 +30,14 @@ public:
     this->message = message;
   }
 
+  void setNotePlaying(bool *notePlaying) {
+    this->notePlaying = notePlaying;
+  }
+
 private:
   MidiOutput *midiOutput;
   MidiMessage message;
+  bool *notePlaying;
 };
 
 class OutputDevice : public HowlDetectorCallback {
@@ -46,6 +52,7 @@ protected:
 private:
   MidiOutput *midiOutput;
   MidiEventTimer *midiEventTimer;
+  bool notePlaying;
 };
 
 #endif  // __OUTPUTDEVICE_H_B9E839E__

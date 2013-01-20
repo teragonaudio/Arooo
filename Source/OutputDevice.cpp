@@ -13,6 +13,7 @@
 OutputDevice::OutputDevice() {
   midiOutput = NULL;
   midiEventTimer = NULL;
+  notePlaying = false;
 }
 
 OutputDevice::~OutputDevice() {
@@ -49,13 +50,15 @@ void OutputDevice::initialize() {
 }
 
 void OutputDevice::howlDetected() {
-  if (midiOutput) {
+  if (midiOutput && !notePlaying) {
     MidiMessage noteOnMessage = MidiMessage::noteOn(kOutputMidiChannel,
       kOutputMidiNoteNumber, (uint8)kOutputMidiNoteVelocity);
     midiOutput->sendMessageNow(noteOnMessage);
     MidiMessage noteOffMessage = MidiMessage::noteOff(kOutputMidiChannel,
       kOutputMidiNoteNumber, (uint8)kOutputMidiNoteVelocity);
     midiEventTimer->setMessage(noteOffMessage);
+    midiEventTimer->setNotePlaying(&notePlaying);
     midiEventTimer->startTimer(kOutputMidiNoteDurationMs);
+    notePlaying = true;
   }
 }
