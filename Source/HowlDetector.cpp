@@ -32,12 +32,10 @@ void HowlDetector::processFFTData(float const *fftData) {
   int howlDetectionPoints = 0;
   for (int i = 0; i < kHowlBucketNumIndexes; ++i) {
     if (fftData[kHowlBucketIndexes[i]] >= kBucketMinimumStrength) {
-      //printf("Bucket %d has potential hit, %d total\n", kHowlBucketIndexes[i], bucketPoints[i]);
       bucketPoints[i] += 2;
     }
     else {
       if (bucketPoints[i] > 0) {
-        //printf("Bucket %d no longer hitting, %d total\n", kHowlBucketIndexes[i], bucketPoints[i]);
         bucketPoints[i]--;
       }
     }
