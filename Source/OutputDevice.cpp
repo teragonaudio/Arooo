@@ -31,19 +31,26 @@ OutputDevice::~OutputDevice() {
 
 void OutputDevice::initialize() {
   // Search for the Midiflower output device
-  int midiflowerIndex = -1;
+  int midiOutputDeviceIndex = -1;
   StringArray midiDevices = MidiOutput::getDevices();
   for (int i = 0; i < midiDevices.size(); i++) {
     String deviceName = midiDevices[i];
     if (deviceName.equalsIgnoreCase("Midiflower")) {
-      printf("Midiflower found at index %d\n", i);
-      midiflowerIndex = i;
+      midiOutputDeviceIndex = i;
       break;
     }
+#if USE_IAC_DRIVER
+    if (deviceName.equalsIgnoreCase("IAC Driver")) {
+      midiOutputDeviceIndex = i;
+      break;
+    }
+#endif
   }
 
-  if (midiflowerIndex >= 0) {
-    midiOutput = MidiOutput::openDevice(midiflowerIndex);
+  if (midiOutputDeviceIndex >= 0) {
+    midiOutput = MidiOutput::openDevice(midiOutputDeviceIndex);
+    printf("Using MIDI output device: ");
+    std::cout << midiDevices[midiOutputDeviceIndex] << std::endl;
     midiOutput->startBackgroundThread();
     midiEventTimer = new MidiEventTimer(midiOutput);
   }

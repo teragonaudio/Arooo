@@ -19,6 +19,10 @@
 // with information about the incoming signal.
 #define ANALYSIS_MODE 0
 
+// Use the built-in Apple IAC Driver for MIDI output. Currently doesn't
+// work for some weird reason.
+#define USE_IAC_DRIVER 0
+
 // How large of a buffer size we should request from the audio device. Note
 // that this also determines the FFT buffer sizes algorithm, and hence must
 // be given at compile time.
