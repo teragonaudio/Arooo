@@ -16,6 +16,7 @@
 #include "FFTWrapper.h"
 #include "HowlDetector.h"
 #include "OutputDevice.h"
+#include "HowlAnalyzer.h"
 
 class InputProcessor : public AudioIODeviceCallback {
 public:
@@ -33,6 +34,7 @@ private:
   AudioDeviceManager *deviceManager;
   OutputDevice *outputDevice;
 
+  HowlAnalyzer *howlAnalyzer;
   HowlDetector *howlDetector;
   FFTWrapper *fftWrapper;
   float *fftData;

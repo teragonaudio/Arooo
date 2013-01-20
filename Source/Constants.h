@@ -15,6 +15,10 @@
 // improvement, but slower compile times and so is disabled for now.
 #define USE_FFT_FIXED_SIZE 0
 
+// Instead of triggering MIDI notes, this will generate a file to /tmp
+// with information about the incoming signal.
+#define ANALYSIS_MODE 0
+
 // How large of a buffer size we should request from the audio device. Note
 // that this also determines the FFT buffer sizes algorithm, and hence must
 // be given at compile time.
@@ -33,7 +37,7 @@ static const float kBucketMinimumStrength = 20.0f; // TODO: Needs tweaking
 
 // TODO: Would be nice to use real frequencies instead of bucket indexes
 // These must be recalibrated for different FFT buffer sizes
-static const int kHowlBucketIndexes[] = { 14, 32, 526 };
+static const int kHowlBucketIndexes[] = { 14, 30, 526 };
 static const int kHowlBucketNumIndexes = 3;
 
 // If all buckets contain at least this many hits, a howl has been found
