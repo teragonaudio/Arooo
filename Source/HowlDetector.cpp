@@ -10,6 +10,7 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include "../JuceLibraryCode/JuceHeader.h"
 #include "HowlDetector.h"
 #include "Constants.h"
 
@@ -49,7 +50,10 @@ void HowlDetector::processFFTData(float const *fftData) {
 }
 
 void HowlDetector::howlDetected() {
-  printf("Howl detected!\n");
+  Time currentTime = Time::getCurrentTime();
+  printf("Howl detected at ");
+  std::cout << currentTime.formatted("%H:%M.%S") << std::endl;
+
   if (callback != NULL) {
     callback->howlDetected();
   }
