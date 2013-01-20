@@ -10,6 +10,7 @@
 		064FAAA59DB0C23588D5E9E0 /* juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 091449330D5B492ED779320A /* juce_audio_devices.mm */; };
 		1B2B0D1A60761E46D65A584F /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 9C2A074267E94BFD9ED3ED48 /* RecentFilesMenuTemplate.nib */; };
 		2329FF75604887548D92B1AD /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F89E1803598AFFB5149B772 /* IOKit.framework */; };
+		2B26E818D386CDFF69E0E717 /* HowlAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EE74052441D89C7BA54353A /* HowlAnalyzer.cpp */; };
 		3154B2A3BA8CB0A9D556CEFC /* BinaryData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0B66474DDC3CBB9A9E64776 /* BinaryData.cpp */; };
 		3424BFEE78A8112F5B40B474 /* InputProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46C429E673CDB231EBD233F /* InputProcessor.cpp */; };
 		3453F93C7E0D1EA42D3244FF /* DiscRecording.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 279C4F60D3CBA318D4C8DDE4 /* DiscRecording.framework */; };
@@ -296,6 +297,7 @@
 		5CF26CC7655D610EDC466450 /* juce_TopLevelWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_TopLevelWindow.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_TopLevelWindow.h; sourceTree = SOURCE_ROOT; };
 		5D926ADA4233E38396FE6419 /* OscSinCos.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscSinCos.hpp; path = "../../Third-Party/FFTReal-2.11/ffft/OscSinCos.hpp"; sourceTree = SOURCE_ROOT; };
 		5F2CCBC53F184E6E5CB5B0D5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5F3F19F2D2F637CEAAD29732 /* HowlAnalyzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HowlAnalyzer.h; path = ../../Source/HowlAnalyzer.h; sourceTree = SOURCE_ROOT; };
 		5F525FB55FF1C163EE0D4EC5 /* juce_RectanglePlacement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_RectanglePlacement.h; path = ../../JuceLibraryCode/modules/juce_graphics/placement/juce_RectanglePlacement.h; sourceTree = SOURCE_ROOT; };
 		601FF980C9560456F25881BA /* juce_FileSearchPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_FileSearchPath.h; path = ../../JuceLibraryCode/modules/juce_core/files/juce_FileSearchPath.h; sourceTree = SOURCE_ROOT; };
 		605444112CAD35D0CBF1D7CB /* juce_win32_DirectWriteTypeface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_win32_DirectWriteTypeface.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/native/juce_win32_DirectWriteTypeface.cpp; sourceTree = SOURCE_ROOT; };
@@ -389,6 +391,7 @@
 		7DDB713C7835CA03D5331FBF /* juce_MessageListener.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_MessageListener.cpp; path = ../../JuceLibraryCode/modules/juce_events/messages/juce_MessageListener.cpp; sourceTree = SOURCE_ROOT; };
 		7E5F2A92758E7EDAD50E4405 /* juce_PerformanceCounter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_PerformanceCounter.h; path = ../../JuceLibraryCode/modules/juce_core/time/juce_PerformanceCounter.h; sourceTree = SOURCE_ROOT; };
 		7EA2497B938D06152F11F274 /* juce_DrawableRectangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_DrawableRectangle.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/drawables/juce_DrawableRectangle.h; sourceTree = SOURCE_ROOT; };
+		7EE74052441D89C7BA54353A /* HowlAnalyzer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HowlAnalyzer.cpp; path = ../../Source/HowlAnalyzer.cpp; sourceTree = SOURCE_ROOT; };
 		7F6DFF3D53BAED1D065CB515 /* juce_DrawableButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_DrawableButton.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/buttons/juce_DrawableButton.h; sourceTree = SOURCE_ROOT; };
 		7FB2F1FB34E7A292C4EC8C6D /* juce_UnitTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_UnitTest.h; path = ../../JuceLibraryCode/modules/juce_core/unit_tests/juce_UnitTest.h; sourceTree = SOURCE_ROOT; };
 		800106E009E6EF04C8E382BC /* juce_ReferenceCountedObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ReferenceCountedObject.h; path = ../../JuceLibraryCode/modules/juce_core/memory/juce_ReferenceCountedObject.h; sourceTree = SOURCE_ROOT; };
@@ -2087,6 +2090,8 @@
 				BCB79A3398AA9BEB451183FA /* Constants.h */,
 				54DF2113221AD10F4331AC76 /* FFTWrapper.cpp */,
 				7614D1BC05BDDEF87C28DFDF /* FFTWrapper.h */,
+				7EE74052441D89C7BA54353A /* HowlAnalyzer.cpp */,
+				5F3F19F2D2F637CEAAD29732 /* HowlAnalyzer.h */,
 				466233BAD1CB185D731C0149 /* HowlDetector.cpp */,
 				A20E9C315EB949094765CB30 /* HowlDetector.h */,
 				F46C429E673CDB231EBD233F /* InputProcessor.cpp */,
@@ -2209,6 +2214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF363E115E7F7B7E524A24E9 /* FFTWrapper.cpp in Sources */,
+				2B26E818D386CDFF69E0E717 /* HowlAnalyzer.cpp in Sources */,
 				950E3540D2FB931BD8F450AC /* HowlDetector.cpp in Sources */,
 				3424BFEE78A8112F5B40B474 /* InputProcessor.cpp in Sources */,
 				E9328281EF134F3250437961 /* Main.cpp in Sources */,

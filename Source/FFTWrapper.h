@@ -11,8 +11,7 @@
 #ifndef __FFTWRAPPER_H_D77FAC66__
 #define __FFTWRAPPER_H_D77FAC66__
 
-// Disabled for now
-#define USE_FFT_FIXED_SIZE 0
+#include "Constants.h"
 
 #if USE_FFT_FIXED_SIZE
 #include "FFTRealFixLen.h"

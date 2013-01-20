@@ -10,7 +10,7 @@ namespace BinaryData
     const int            icon_pngSize = 190077;
 
     extern const char*   Constants_h;
-    const int            Constants_hSize = 1387;
+    const int            Constants_hSize = 1819;
 
     // If you provide the name of one of the binary resource variables above, this function will
     // return the corresponding data and its size (or a null pointer if the name isn't found).

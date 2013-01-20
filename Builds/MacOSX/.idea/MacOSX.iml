@@ -2020,6 +2020,12 @@
     <content url="file://$MODULE_DIR$/../../Source/FFTWrapper.h">
       <sourceFolder url="file://$MODULE_DIR$/../../Source/FFTWrapper.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../Source/HowlAnalyzer.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/HowlAnalyzer.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/HowlAnalyzer.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/HowlAnalyzer.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../Source/HowlDetector.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../Source/HowlDetector.cpp" isTestSource="false" />
     </content>

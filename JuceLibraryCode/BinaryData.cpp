@@ -2741,7 +2741,15 @@ static const unsigned char temp_5e5755fc[] =
 "#ifndef __CONSTANTS_H_448F6882__\r\n"
 "#define __CONSTANTS_H_448F6882__\r\n"
 "\r\n"
+"// Use fixed FFT buffer sizes at compile time. Offers a large performance\r\n"
+"// improvement, but slower compile times and so is disabled for now.\r\n"
+"#define USE_FFT_FIXED_SIZE 0\r\n"
+"\r\n"
+"// How large of a buffer size we should request from the audio device. Note\r\n"
+"// that this also determines the FFT buffer sizes algorithm, and hence must\r\n"
+"// be given at compile time.\r\n"
 "static const int kBufferSize = 1024;\r\n"
+"// Required if using a fixed FFT size\r\n"
 "static const int kBufferSizeBase2 = 10; // 2^10\r\n"
 "\r\n"
 "static const float kSampleRate = 44100.0f;\r\n"
@@ -2758,13 +2766,14 @@ static const unsigned char temp_5e5755fc[] =
 "static const int kHowlBucketIndexes[] = { 14, 32, 526 };\r\n"
 "static const int kHowlBucketNumIndexes = 3;\r\n"
 "\r\n"
-"// If all buckets have at least this many hits, a howl has been found\r\n"
-"static const int kHowlDetectionNumHitsNeeded = 5;\r\n"
+"// If all buckets contain at least this many hits, a howl has been found\r\n"
+"static const int kHowlDetectionNumPointsNeeded = 15;\r\n"
 "\r\n"
+"// Output note settings\r\n"
 "static const int kOutputMidiChannel = 1;\r\n"
 "static const int kOutputMidiNoteNumber = 64;\r\n"
 "static const int kOutputMidiNoteVelocity = 127;\r\n"
-"static const int kOutputMidiNoteDurationMs = 250;\r\n"
+"static const int kOutputMidiNoteDurationMs = 1000;\r\n"
 "\r\n"
 "#endif  // __CONSTANTS_448F6882__\r\n";
 
@@ -2782,7 +2791,7 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes) throw
     switch (hash)
     {
         case 0xd4093963:  numBytes = 190077; return icon_png;
-        case 0xe75f2d58:  numBytes = 1387; return Constants_h;
+        case 0xe75f2d58:  numBytes = 1819; return Constants_h;
         default: break;
     }
 
