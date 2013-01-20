@@ -33,8 +33,8 @@ static const float kBucketMinimumStrength = 30.0f;
 
 // TODO: Would be nice to use real frequencies instead of bucket indexes
 // These must be recalibrated for different FFT buffer sizes
-static const int kHowlBucketIndexes[] = { 14, 15, 16, 30, 31, 32, 526, 527, 528 };
-static const int kHowlBucketNumIndexes = 9;
+static const int kHowlBucketIndexes[] = { 13, 14, 15, 526, 527, 528 };
+static const int kHowlBucketNumIndexes = 6;
 
 // If all buckets contain at least this many hits, a howl has been found
 static const int kHowlDetectionNumPointsNeeded = 15;
