@@ -72,7 +72,8 @@ void InputProcessor::audioDeviceStopped() {
 }
 
 void InputProcessor::audioDeviceAboutToStart(AudioIODevice *device) {
-  printf("Audio device starting\n");
+  printf("Starting audio device: ");
+  std::cout << device->getName() << std::endl;
 }
 
 void InputProcessor::audioDeviceIOCallback(const float **inputChannelData, int numInputChannels,
