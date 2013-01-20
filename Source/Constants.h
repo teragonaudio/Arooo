@@ -29,7 +29,7 @@ static const int kBufferSizeBase2 = 10; // 2^10
 static const float kSampleRate = 44100.0f;
 
 // The minimum strength of the bucket value in order to trigger a hit
-static const float kBucketMinimumStrength = 20.0f; // TODO: Needs tweaking
+static const float kBucketMinimumStrength = 30.0f;
 
 // TODO: Would be nice to use real frequencies instead of bucket indexes
 // These must be recalibrated for different FFT buffer sizes
