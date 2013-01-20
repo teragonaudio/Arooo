@@ -40,6 +40,8 @@
     </GROUP>
     <GROUP id="{11AD44E5-1DAB-8713-3811-B5205B02D64B}" name="Source">
       <FILE id="qUf5Od" name="Constants.h" compile="0" resource="1" file="Source/Constants.h"/>
+      <FILE id="csH2nX" name="EventLogger.cpp" compile="1" resource="0" file="Source/EventLogger.cpp"/>
+      <FILE id="atflJZ" name="EventLogger.h" compile="0" resource="0" file="Source/EventLogger.h"/>
       <FILE id="fVQAo0" name="FFTWrapper.cpp" compile="1" resource="0" file="Source/FFTWrapper.cpp"/>
       <FILE id="bSBkGM" name="FFTWrapper.h" compile="0" resource="0" file="Source/FFTWrapper.h"/>
       <FILE id="Inl5Nl" name="HowlAnalyzer.cpp" compile="1" resource="0"

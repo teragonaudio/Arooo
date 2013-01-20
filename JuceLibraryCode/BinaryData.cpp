@@ -2743,7 +2743,15 @@ static const unsigned char temp_5e5755fc[] =
 "\r\n"
 "// Use fixed FFT buffer sizes at compile time. Offers a large performance\r\n"
 "// improvement, but slower compile times and so is disabled for now.\r\n"
-"#define USE_FFT_FIXED_SIZE 0\r\n"
+"#define USE_FFT_FIXED_SIZE 1\r\n"
+"\r\n"
+"// Instead of triggering MIDI notes, this will generate a file to /tmp\r\n"
+"// with information about the incoming signal.\r\n"
+"#define ANALYSIS_MODE 0\r\n"
+"\r\n"
+"// Use the built-in Apple IAC Driver for MIDI output. Currently doesn't\r\n"
+"// work for some weird reason.\r\n"
+"#define USE_IAC_DRIVER 0\r\n"
 "\r\n"
 "// How large of a buffer size we should request from the audio device. Note\r\n"
 "// that this also determines the FFT buffer sizes algorithm, and hence must\r\n"
@@ -2754,17 +2762,13 @@ static const unsigned char temp_5e5755fc[] =
 "\r\n"
 "static const float kSampleRate = 44100.0f;\r\n"
 "\r\n"
-"// Also check this number of buckets above and below the target bucket index.\r\n"
-"// So if the bucket index is 33, this would check buckets 32 & 34.\r\n"
-"static const int kBucketTolerance = 1;\r\n"
-"\r\n"
 "// The minimum strength of the bucket value in order to trigger a hit\r\n"
-"static const float kBucketMinimumStrength = 20.0f; // TODO: Needs tweaking\r\n"
+"static const float kBucketMinimumStrength = 30.0f;\r\n"
 "\r\n"
 "// TODO: Would be nice to use real frequencies instead of bucket indexes\r\n"
 "// These must be recalibrated for different FFT buffer sizes\r\n"
-"static const int kHowlBucketIndexes[] = { 14, 32, 526 };\r\n"
-"static const int kHowlBucketNumIndexes = 3;\r\n"
+"static const int kHowlBucketIndexes[] = { 13, 14, 15, 526, 527, 528 };\r\n"
+"static const int kHowlBucketNumIndexes = 6;\r\n"
 "\r\n"
 "// If all buckets contain at least this many hits, a howl has been found\r\n"
 "static const int kHowlDetectionNumPointsNeeded = 15;\r\n"
@@ -2791,7 +2795,7 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes) throw
     switch (hash)
     {
         case 0xd4093963:  numBytes = 190077; return icon_png;
-        case 0xe75f2d58:  numBytes = 1819; return Constants_h;
+        case 0xe75f2d58:  numBytes = 1900; return Constants_h;
         default: break;
     }
 

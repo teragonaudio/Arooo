@@ -43,6 +43,7 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS := \
+  $(OBJDIR)/EventLogger_23439e2b.o \
   $(OBJDIR)/FFTWrapper_4d6ba048.o \
   $(OBJDIR)/HowlAnalyzer_d2f4ba6b.o \
   $(OBJDIR)/HowlDetector_a7e4f58b.o \
@@ -77,6 +78,11 @@ clean:
 strip:
 	@echo Stripping Arooo
 	-@strip --strip-unneeded $(OUTDIR)/$(TARGET)
+
+$(OBJDIR)/EventLogger_23439e2b.o: ../../Source/EventLogger.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling EventLogger.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/FFTWrapper_4d6ba048.o: ../../Source/FFTWrapper.cpp
 	-@mkdir -p $(OBJDIR)
