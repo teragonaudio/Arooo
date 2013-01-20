@@ -13,7 +13,7 @@
 
 // Use fixed FFT buffer sizes at compile time. Offers a large performance
 // improvement, but slower compile times and so is disabled for now.
-#define USE_FFT_FIXED_SIZE 0
+#define USE_FFT_FIXED_SIZE 1
 
 // Instead of triggering MIDI notes, this will generate a file to /tmp
 // with information about the incoming signal.

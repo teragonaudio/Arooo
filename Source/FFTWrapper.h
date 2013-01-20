@@ -28,7 +28,7 @@ public:
 
 private:
 #if USE_FFT_FIXED_SIZE
-  ffft::FFTRealFixLen *fftProcessor;
+  ffft::FFTRealFixLen<kBufferSizeBase2> *fftProcessor;
 #else
   ffft::FFTReal<float> *fftProcessor;
 #endif
