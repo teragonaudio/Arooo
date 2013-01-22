@@ -50,7 +50,10 @@ void HowlDetector::processFFTData(float const *fftData) {
 }
 
 void HowlDetector::howlDetected() {
-  FileLogger::getCurrentLogger()->writeToLog("Howl detected");
+  Time currentTime = Time::getCurrentTime();
+  String message = "Howl detected at ";
+  message += currentTime.formatted("%H:%M.%S");
+  Logger::getCurrentLogger()->writeToLog(message);
 
   if (callback != NULL) {
     callback->howlDetected();

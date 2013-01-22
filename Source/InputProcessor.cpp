@@ -86,7 +86,7 @@ void InputProcessor::audioDeviceIOCallback(const float **inputChannelData, int n
     return;
   }
   if (!fftData) {
-    FileLogger::getCurrentLogger()->writeToLog("Still intializing...");
+    // Still initializing
     return;
   }
 

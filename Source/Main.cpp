@@ -10,6 +10,32 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "InputProcessor.h"
+#include "MainComponent.h"
+#include "LogWrapper.h"
+
+class MainWindow : public DocumentWindow, public GuiLogger {
+public:
+  MainWindow() : DocumentWindow("Arooo", Colours::lightgrey,
+    DocumentWindow::closeButton | DocumentWindow::minimiseButton, true) {
+    mainComponent = new MainComponent();
+    setContentOwned(mainComponent, true);
+    centreWithSize(getWidth(), getHeight());
+    setVisible(true);
+  }
+  ~MainWindow() {}
+
+  void closeButtonPressed() {
+    JUCEApplication::quit();
+  }
+
+  virtual void logMessage(const String& message) {
+    const MessageManagerLock lock;
+    mainComponent->logText(message);
+  }
+
+private:
+  ScopedPointer<MainComponent> mainComponent;
+};
 
 //==============================================================================
 class AroooApplication : public JUCEApplication {
@@ -17,9 +43,6 @@ public:
   //==============================================================================
   AroooApplication() {
     inputProcessor = new InputProcessor();
-
-    FileLogger* logger = FileLogger::createDefaultAppLogger("Arooo", "log.txt", String::empty, 0);
-    FileLogger::setCurrentLogger(logger);
   }
 
   const String getApplicationName() {
@@ -36,6 +59,9 @@ public:
 
   //==============================================================================
   void initialise(const String& commandLine) {
+    mainWindow = new MainWindow();
+    LogWrapper *logWrapper = new LogWrapper(mainWindow);
+    Logger::setCurrentLogger(logWrapper);
     inputProcessor->initialize();
   }
 
@@ -44,11 +70,13 @@ public:
       delete inputProcessor;
     }
 
-    Logger *logger = FileLogger::getCurrentLogger();
+    Logger *logger = Logger::getCurrentLogger();
     if (logger) {
-      FileLogger::setCurrentLogger(nullptr);
+      Logger::setCurrentLogger(nullptr);
       delete logger;
     }
+
+    mainWindow = nullptr;
   }
 
   //==============================================================================
@@ -65,6 +93,7 @@ public:
   }
 
 private:
+  ScopedPointer<MainWindow> mainWindow;
   InputProcessor *inputProcessor;
 };
 
