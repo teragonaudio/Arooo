@@ -64,27 +64,29 @@ void InputProcessor::initialize() {
   fftWrapper = new FFTWrapper();
   fftData = new float[kBufferSize];
 
-  printf("Initialized\n");
+  FileLogger::getCurrentLogger()->writeToLog("Ready");
 }
 
 void InputProcessor::audioDeviceStopped() {
-  printf("Audio device stopped\n");
+  FileLogger::getCurrentLogger()->writeToLog("Audio device stopped");
 }
 
 void InputProcessor::audioDeviceAboutToStart(AudioIODevice *device) {
-  printf("Starting audio device: ");
-  std::cout << device->getName() << std::endl;
+  String message = "Starting audio device: ";
+  message += device->getName();
+  FileLogger::getCurrentLogger()->writeToLog(message);
 }
 
 void InputProcessor::audioDeviceIOCallback(const float **inputChannelData, int numInputChannels,
   float **outputChannelData, int numOutputChannels, int numSamples) {
   // Sanity checking
   if (numSamples != kBufferSize) {
-    printf("Cannot process, wanted buffer size of %d, got %d\n", kBufferSize, numSamples);
+    String message = String::formatted("Cannot process, wanted buffer size of %d, got %d", kBufferSize, numSamples);
+    FileLogger::getCurrentLogger()->writeToLog(message);
     return;
   }
   if (!fftData) {
-    printf("Waiting for initialization... ");
+    FileLogger::getCurrentLogger()->writeToLog("Still intializing...");
     return;
   }
 

@@ -50,9 +50,7 @@ void HowlDetector::processFFTData(float const *fftData) {
 }
 
 void HowlDetector::howlDetected() {
-  Time currentTime = Time::getCurrentTime();
-  printf("Howl detected at ");
-  std::cout << currentTime.formatted("%H:%M.%S") << std::endl;
+  FileLogger::getCurrentLogger()->writeToLog("Howl detected");
 
   if (callback != NULL) {
     callback->howlDetected();

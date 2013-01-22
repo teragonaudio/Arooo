@@ -49,10 +49,14 @@ void OutputDevice::initialize() {
 
   if (midiOutputDeviceIndex >= 0) {
     midiOutput = MidiOutput::openDevice(midiOutputDeviceIndex);
-    printf("Using MIDI output device: ");
-    std::cout << midiDevices[midiOutputDeviceIndex] << std::endl;
+    String message = "Using MIDI output device: ";
+    message += midiDevices[midiOutputDeviceIndex];
+    FileLogger::getCurrentLogger()->writeToLog(message);
     midiOutput->startBackgroundThread();
     midiEventTimer = new MidiEventTimer(midiOutput);
+  }
+  else {
+    FileLogger::getCurrentLogger()->writeToLog("No preferred MIDI device found");
   }
 }
 

@@ -17,6 +17,9 @@ public:
   //==============================================================================
   AroooApplication() {
     inputProcessor = new InputProcessor();
+
+    FileLogger* logger = FileLogger::createDefaultAppLogger("Arooo", "log.txt", String::empty, 0);
+    FileLogger::setCurrentLogger(logger);
   }
 
   const String getApplicationName() {
@@ -39,6 +42,12 @@ public:
   void shutdown() {
     if (inputProcessor) {
       delete inputProcessor;
+    }
+
+    Logger *logger = FileLogger::getCurrentLogger();
+    if (logger) {
+      FileLogger::setCurrentLogger(nullptr);
+      delete logger;
     }
   }
 
