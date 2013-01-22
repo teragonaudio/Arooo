@@ -52,7 +52,12 @@
             file="Source/InputProcessor.cpp"/>
       <FILE id="mrcJGo" name="InputProcessor.h" compile="0" resource="0"
             file="Source/InputProcessor.h"/>
+      <FILE id="WQiL5x" name="LogWrapper.cpp" compile="1" resource="0" file="Source/LogWrapper.cpp"/>
+      <FILE id="k0yILK" name="LogWrapper.h" compile="0" resource="0" file="Source/LogWrapper.h"/>
       <FILE id="ifMLlV" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="dH5U8O" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="nswenb" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="xJKEIY" name="OutputDevice.cpp" compile="1" resource="0"
             file="Source/OutputDevice.cpp"/>
       <FILE id="cHfXXC" name="OutputDevice.h" compile="0" resource="0" file="Source/OutputDevice.h"/>

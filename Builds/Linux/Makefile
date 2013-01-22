@@ -47,7 +47,9 @@ OBJECTS := \
   $(OBJDIR)/HowlAnalyzer_d2f4ba6b.o \
   $(OBJDIR)/HowlDetector_a7e4f58b.o \
   $(OBJDIR)/InputProcessor_d28a0f71.o \
+  $(OBJDIR)/LogWrapper_5dc9aab8.o \
   $(OBJDIR)/Main_90ebc5c2.o \
+  $(OBJDIR)/MainComponent_a6ffb4a5.o \
   $(OBJDIR)/OutputDevice_c1bb9bc0.o \
   $(OBJDIR)/BinaryData_ce4232d4.o \
   $(OBJDIR)/juce_audio_basics_2442e4ea.o \
@@ -98,9 +100,19 @@ $(OBJDIR)/InputProcessor_d28a0f71.o: ../../Source/InputProcessor.cpp
 	@echo "Compiling InputProcessor.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
+$(OBJDIR)/LogWrapper_5dc9aab8.o: ../../Source/LogWrapper.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling LogWrapper.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
 $(OBJDIR)/Main_90ebc5c2.o: ../../Source/Main.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling Main.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/MainComponent_a6ffb4a5.o: ../../Source/MainComponent.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling MainComponent.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/OutputDevice_c1bb9bc0.o: ../../Source/OutputDevice.cpp

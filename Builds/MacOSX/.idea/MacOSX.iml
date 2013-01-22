@@ -2044,8 +2044,26 @@
     <content url="file://$MODULE_DIR$/../../Source/InputProcessor.h">
       <sourceFolder url="file://$MODULE_DIR$/../../Source/InputProcessor.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../Source/LogWrapper.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/LogWrapper.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/LogWrapper.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/LogWrapper.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../Source/Main.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../Source/Main.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/MainComponent.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/MainComponent.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/MainComponent.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/MainComponent.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/MainWindow.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/MainWindow.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/MainWindow.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/MainWindow.h" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../Source/OutputDevice.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../Source/OutputDevice.cpp" isTestSource="false" />
