@@ -2014,6 +2014,12 @@
     <content url="file://$MODULE_DIR$/../../Source/Constants.h">
       <sourceFolder url="file://$MODULE_DIR$/../../Source/Constants.h" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../Source/EventLogger.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/EventLogger.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../Source/EventLogger.h">
+      <sourceFolder url="file://$MODULE_DIR$/../../Source/EventLogger.h" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../Source/FFTWrapper.cpp">
       <sourceFolder url="file://$MODULE_DIR$/../../Source/FFTWrapper.cpp" isTestSource="false" />
     </content>
