@@ -14,8 +14,8 @@ InputProcessor::InputProcessor() {
   deviceManager = NULL;
   outputDevice = NULL;
 
-  InputAnalyzer = NULL;
-  howlDetector = NULL;
+  inputAnalyzer = NULL;
+  eventDetector = NULL;
   fftWrapper = NULL;
   fftData = NULL;
 }
@@ -29,11 +29,11 @@ InputProcessor::~InputProcessor() {
     delete outputDevice;
   }
 
-  if (InputAnalyzer) {
-    delete InputAnalyzer;
+  if (inputAnalyzer) {
+    delete inputAnalyzer;
   }
-  if (howlDetector) {
-    delete howlDetector;
+  if (eventDetector) {
+    delete eventDetector;
   }
   if (fftWrapper) {
     delete fftWrapper;
@@ -55,11 +55,11 @@ void InputProcessor::initialize() {
   outputDevice->initialize();
 
 #if ANALYSIS_MODE
-  InputAnalyzer = new InputAnalyzer();
+  inputAnalyzer = new InputAnalyzer();
   InputAnalyzer->initialize();
 #else
-  howlDetector = new HowlDetector();
-  howlDetector->setCallback(outputDevice);
+  eventDetector = new EventDetector();
+  eventDetector->setCallback(outputDevice);
 #endif
   fftWrapper = new FFTWrapper();
   fftData = new float[kBufferSize];
@@ -98,8 +98,8 @@ void InputProcessor::audioDeviceIOCallback(const float **inputChannelData, int n
   // Force mono, we don't really care about stereo processing
   fftWrapper->doFFT(inputChannelData[0], fftData);
 #if ANALYSIS_MODE
-  InputAnalyzer->processFFTData(fftData);
+  inputAnalyzer->processFFTData(fftData);
 #else
-  howlDetector->processFFTData(fftData);
+  eventDetector->processFFTData(fftData);
 #endif
 }

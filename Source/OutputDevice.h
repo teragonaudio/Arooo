@@ -13,7 +13,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Constants.h"
-#include "HowlDetector.h"
+#include "EventDetector.h"
 
 class MidiEventTimer : public Timer {
 public:
@@ -40,7 +40,7 @@ private:
   bool *notePlaying;
 };
 
-class OutputDevice : public HowlDetectorCallback {
+class OutputDevice : public EventDetectorCallback {
 public:
   OutputDevice();
   virtual ~OutputDevice();

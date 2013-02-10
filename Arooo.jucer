@@ -40,14 +40,14 @@
     </GROUP>
     <GROUP id="{11AD44E5-1DAB-8713-3811-B5205B02D64B}" name="Source">
       <FILE id="qUf5Od" name="Constants.h" compile="0" resource="1" file="Source/Constants.h"/>
+      <FILE id="lpRcR8" name="EventDetector.cpp" compile="1" resource="0"
+            file="Source/EventDetector.cpp"/>
+      <FILE id="NzoT4y" name="EventDetector.h" compile="0" resource="0" file="Source/EventDetector.h"/>
       <FILE id="fVQAo0" name="FFTWrapper.cpp" compile="1" resource="0" file="Source/FFTWrapper.cpp"/>
       <FILE id="bSBkGM" name="FFTWrapper.h" compile="0" resource="0" file="Source/FFTWrapper.h"/>
       <FILE id="Inl5Nl" name="InputAnalyzer.cpp" compile="1" resource="0"
             file="Source/InputAnalyzer.cpp"/>
       <FILE id="lzWdG2" name="InputAnalyzer.h" compile="0" resource="0" file="Source/InputAnalyzer.h"/>
-      <FILE id="lpRcR8" name="HowlDetector.cpp" compile="1" resource="0"
-            file="Source/HowlDetector.cpp"/>
-      <FILE id="NzoT4y" name="HowlDetector.h" compile="0" resource="0" file="Source/HowlDetector.h"/>
       <FILE id="WOdcbq" name="InputProcessor.cpp" compile="1" resource="0"
             file="Source/InputProcessor.cpp"/>
       <FILE id="mrcJGo" name="InputProcessor.h" compile="0" resource="0"

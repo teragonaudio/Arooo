@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    HowlDetector.cpp
+    EventDetector.cpp
     Created: 19 Jan 2013 2:56:01pm
     Author:  Nik Reiman
 
@@ -11,25 +11,25 @@
 #include <unistd.h>
 #include <stdio.h>
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "HowlDetector.h"
+#include "EventDetector.h"
 #include "Constants.h"
 
-HowlDetector::HowlDetector() {
+EventDetector::EventDetector() {
   callback = NULL;
   resetBucketPoints();
 }
 
-HowlDetector::~HowlDetector() {
+EventDetector::~EventDetector() {
 
 }
 
-void HowlDetector::resetBucketPoints() {
+void EventDetector::resetBucketPoints() {
   for (int i = 0; i < kHowlBucketNumIndexes; ++i) {
     bucketPoints[i] = 0;
   }
 }
 
-void HowlDetector::processFFTData(float const *fftData) {
+void EventDetector::processFFTData(float const *fftData) {
   int howlDetectionPoints = 0;
   for (int i = 0; i < kHowlBucketNumIndexes; ++i) {
     if (fftData[kHowlBucketIndexes[i]] >= kBucketMinimumStrength) {
@@ -49,7 +49,7 @@ void HowlDetector::processFFTData(float const *fftData) {
   }
 }
 
-void HowlDetector::howlDetected() {
+void EventDetector::howlDetected() {
   Time currentTime = Time::getCurrentTime();
   String message = "Howl detected at ";
   message += currentTime.formatted("%H:%M.%S");
@@ -61,7 +61,7 @@ void HowlDetector::howlDetected() {
   resetBucketPoints();
 }
 
-void HowlDetector::setCallback(HowlDetectorCallback *callback) {
+void EventDetector::setCallback(EventDetectorCallback *callback) {
   this->callback = callback;
 }
 

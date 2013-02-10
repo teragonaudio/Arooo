@@ -14,7 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Constants.h"
 #include "FFTWrapper.h"
-#include "HowlDetector.h"
+#include "EventDetector.h"
 #include "OutputDevice.h"
 #include "InputAnalyzer.h"
 
@@ -34,8 +34,8 @@ private:
   AudioDeviceManager *deviceManager;
   OutputDevice *outputDevice;
 
-  InputAnalyzer *InputAnalyzer;
-  HowlDetector *howlDetector;
+  InputAnalyzer *inputAnalyzer;
+  EventDetector *eventDetector;
   FFTWrapper *fftWrapper;
   float *fftData;
 };

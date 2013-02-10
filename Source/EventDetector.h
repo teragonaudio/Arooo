@@ -1,41 +1,41 @@
 /*
   ==============================================================================
 
-    HowlDetector.h
+    EventDetector.h
     Created: 19 Jan 2013 2:56:01pm
     Author:  Nik Reiman
 
   ==============================================================================
 */
 
-#ifndef __HOWLDETECTOR_H_F359D429__
-#define __HOWLDETECTOR_H_F359D429__
+#ifndef __EventDetector_H_F359D429__
+#define __EventDetector_H_F359D429__
 
 #include "Constants.h"
 
-class HowlDetectorCallback {
+class EventDetectorCallback {
 public:
-  HowlDetectorCallback() {}
-  virtual ~HowlDetectorCallback() {}
+  EventDetectorCallback() {}
+  virtual ~EventDetectorCallback() {}
 
   virtual void howlDetected() = 0;
 };
 
-class HowlDetector {
+class EventDetector {
 public:
-  HowlDetector();
-  virtual ~HowlDetector();
+  EventDetector();
+  virtual ~EventDetector();
 
   void processFFTData(const float* fftData);
 
-  void setCallback(HowlDetectorCallback *callback);
+  void setCallback(EventDetectorCallback *callback);
 
 private:
   void howlDetected();
   void resetBucketPoints();
 
-  HowlDetectorCallback *callback;
+  EventDetectorCallback *callback;
   int bucketPoints[kHowlBucketNumIndexes];
 };
 
-#endif  // __HOWLDETECTOR_H_F359D429__
+#endif  // __EventDetector_H_F359D429__

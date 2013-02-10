@@ -43,9 +43,9 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS := \
+  $(OBJDIR)/EventDetector_9b34d3e1.o \
   $(OBJDIR)/FFTWrapper_4d6ba048.o \
   $(OBJDIR)/InputAnalyzer_5db35f1.o \
-  $(OBJDIR)/HowlDetector_a7e4f58b.o \
   $(OBJDIR)/InputProcessor_d28a0f71.o \
   $(OBJDIR)/LogWrapper_5dc9aab8.o \
   $(OBJDIR)/Main_90ebc5c2.o \
@@ -80,6 +80,11 @@ strip:
 	@echo Stripping Arooo
 	-@strip --strip-unneeded $(OUTDIR)/$(TARGET)
 
+$(OBJDIR)/EventDetector_9b34d3e1.o: ../../Source/EventDetector.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling EventDetector.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
 $(OBJDIR)/FFTWrapper_4d6ba048.o: ../../Source/FFTWrapper.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling FFTWrapper.cpp"
@@ -88,11 +93,6 @@ $(OBJDIR)/FFTWrapper_4d6ba048.o: ../../Source/FFTWrapper.cpp
 $(OBJDIR)/InputAnalyzer_5db35f1.o: ../../Source/InputAnalyzer.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling InputAnalyzer.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/HowlDetector_a7e4f58b.o: ../../Source/HowlDetector.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling HowlDetector.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/InputProcessor_d28a0f71.o: ../../Source/InputProcessor.cpp
