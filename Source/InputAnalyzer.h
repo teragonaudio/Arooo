@@ -1,25 +1,25 @@
 /*
   ==============================================================================
 
-    HowlAnalyzer.h
+    InputAnalyzer.h
     Created: 20 Jan 2013 8:49:41am
     Author:  Nik Reiman
 
   ==============================================================================
 */
 
-#ifndef __HOWLANALYZER_H_2F555109__
-#define __HOWLANALYZER_H_2F555109__
+#ifndef __InputAnalyzer_H_2F555109__
+#define __InputAnalyzer_H_2F555109__
 
 #include <stdio.h>
 #include "Constants.h"
 
 static const int kNumBucketsToDisplay = 4;
 
-class HowlAnalyzer {
+class InputAnalyzer {
 public:
-  HowlAnalyzer();
-  virtual ~HowlAnalyzer();
+  InputAnalyzer();
+  virtual ~InputAnalyzer();
 
   void initialize();
   void processFFTData(const float* fftData);
@@ -33,4 +33,4 @@ private:
   int bucketHits[kBufferSize];
 };
 
-#endif  // __HOWLANALYZER_H_2F555109__
+#endif  // __InputAnalyzer_H_2F555109__

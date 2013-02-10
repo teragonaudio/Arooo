@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  22 Jan 2013 9:28:01pm
+  Creation date:  23 Jan 2013 8:52:25pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_MAINCOMPONENT_MAINCOMPONENT_C050DF1D__
-#define __JUCER_HEADER_MAINCOMPONENT_MAINCOMPONENT_C050DF1D__
+#ifndef __JUCER_HEADER_MAINCOMPONENT_MAINCOMPONENT_BB374BEC__
+#define __JUCER_HEADER_MAINCOMPONENT_MAINCOMPONENT_BB374BEC__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
@@ -36,7 +36,8 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class MainComponent  : public Component
+class MainComponent  : public Component,
+                       public ButtonListener
 {
 public:
     //==============================================================================
@@ -46,10 +47,11 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
     void logText(const String& message);
-      //[/UserMethods]
+    //[/UserMethods]
 
     void paint (Graphics& g);
     void resized();
+    void buttonClicked (Button* buttonThatWasClicked);
 
 
 
@@ -59,6 +61,9 @@ private:
 
     //==============================================================================
     TextEditor* logOutput;
+    TextButton* analyzeFileButton;
+    Label* statusLabel;
+    Label* eventLogLabel;
 
 
     //==============================================================================
@@ -68,4 +73,4 @@ private:
 //[EndFile] You can add extra defines here...
 //[/EndFile]
 
-#endif   // __JUCER_HEADER_MAINCOMPONENT_MAINCOMPONENT_C050DF1D__
+#endif   // __JUCER_HEADER_MAINCOMPONENT_MAINCOMPONENT_BB374BEC__

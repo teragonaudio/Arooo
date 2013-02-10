@@ -42,9 +42,9 @@
       <FILE id="qUf5Od" name="Constants.h" compile="0" resource="1" file="Source/Constants.h"/>
       <FILE id="fVQAo0" name="FFTWrapper.cpp" compile="1" resource="0" file="Source/FFTWrapper.cpp"/>
       <FILE id="bSBkGM" name="FFTWrapper.h" compile="0" resource="0" file="Source/FFTWrapper.h"/>
-      <FILE id="Inl5Nl" name="HowlAnalyzer.cpp" compile="1" resource="0"
-            file="Source/HowlAnalyzer.cpp"/>
-      <FILE id="lzWdG2" name="HowlAnalyzer.h" compile="0" resource="0" file="Source/HowlAnalyzer.h"/>
+      <FILE id="Inl5Nl" name="InputAnalyzer.cpp" compile="1" resource="0"
+            file="Source/InputAnalyzer.cpp"/>
+      <FILE id="lzWdG2" name="InputAnalyzer.h" compile="0" resource="0" file="Source/InputAnalyzer.h"/>
       <FILE id="lpRcR8" name="HowlDetector.cpp" compile="1" resource="0"
             file="Source/HowlDetector.cpp"/>
       <FILE id="NzoT4y" name="HowlDetector.h" compile="0" resource="0" file="Source/HowlDetector.h"/>

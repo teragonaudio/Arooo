@@ -1,21 +1,21 @@
 /*
   ==============================================================================
 
-    HowlAnalyzer.cpp
+    InputAnalyzer.cpp
     Created: 20 Jan 2013 8:49:41am
     Author:  Nik Reiman
 
   ==============================================================================
 */
 
-#include "HowlAnalyzer.h"
+#include "InputAnalyzer.h"
 #include "Constants.h"
 
-HowlAnalyzer::HowlAnalyzer() {
+InputAnalyzer::InputAnalyzer() {
   outputFile = NULL;
 }
 
-HowlAnalyzer::~HowlAnalyzer() {
+InputAnalyzer::~InputAnalyzer() {
   if (outputFile) {
     printTopBuckets();
     fprintf(outputFile, "--- Analysis finished ---\n");
@@ -25,7 +25,7 @@ HowlAnalyzer::~HowlAnalyzer() {
   }
 }
 
-void HowlAnalyzer::initialize() {
+void InputAnalyzer::initialize() {
   outputFile = fopen("/tmp/howl-analysis.txt", "w");
   fprintf(outputFile, "--- Starting analysis ---\n");
   for (int i = 0; i < kBufferSize; ++i) {
@@ -33,7 +33,7 @@ void HowlAnalyzer::initialize() {
   }
 }
 
-void HowlAnalyzer::processFFTData(const float *fftData) {
+void InputAnalyzer::processFFTData(const float *fftData) {
   for (int i = 0; i < kNumBucketsToDisplay; ++i) {
     topBucketIndexes[i] = 0;
     topBucketValues[i] = 0.0f;
@@ -63,7 +63,7 @@ void HowlAnalyzer::processFFTData(const float *fftData) {
   }
 }
 
-void HowlAnalyzer::printTopBuckets() {
+void InputAnalyzer::printTopBuckets() {
   fprintf(outputFile, "-- All non-zero buckets --\n");
   for (int i = 0; i < kBufferSize; ++i) {
     if (bucketHits[i] > 0) {

@@ -44,7 +44,7 @@ endif
 
 OBJECTS := \
   $(OBJDIR)/FFTWrapper_4d6ba048.o \
-  $(OBJDIR)/HowlAnalyzer_d2f4ba6b.o \
+  $(OBJDIR)/InputAnalyzer_5db35f1.o \
   $(OBJDIR)/HowlDetector_a7e4f58b.o \
   $(OBJDIR)/InputProcessor_d28a0f71.o \
   $(OBJDIR)/LogWrapper_5dc9aab8.o \
@@ -85,9 +85,9 @@ $(OBJDIR)/FFTWrapper_4d6ba048.o: ../../Source/FFTWrapper.cpp
 	@echo "Compiling FFTWrapper.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/HowlAnalyzer_d2f4ba6b.o: ../../Source/HowlAnalyzer.cpp
+$(OBJDIR)/InputAnalyzer_5db35f1.o: ../../Source/InputAnalyzer.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling HowlAnalyzer.cpp"
+	@echo "Compiling InputAnalyzer.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/HowlDetector_a7e4f58b.o: ../../Source/HowlDetector.cpp
