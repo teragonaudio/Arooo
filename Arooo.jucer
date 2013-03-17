@@ -85,7 +85,8 @@
                        isDebug="0" optimisation="2" targetName="Arooo"/>
       </CONFIGURATIONS>
     </XCODE_MAC>
-    <LINUX_MAKE targetFolder="Builds/Linux" juceFolder="../../sdk/juce/modules">
+    <LINUX_MAKE targetFolder="Builds/Linux" juceFolder="../../sdk/juce/modules"
+                extraCompilerFlags="-I../../Third-Party/FFTReal-2.11 -I../../Third-Party/FFTReal-2.11/ffft">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
                        targetName="Arooo"/>
