@@ -8,7 +8,6 @@
   ==============================================================================
 */
 
-#include <unistd.h>
 #include <stdio.h>
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "EventDetector.h"

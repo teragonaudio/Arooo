@@ -77,7 +77,7 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" juceFolder="../../sdk/juce/modules"
                extraCompilerFlags="-I../../Third-Party/FFTReal-2.11" smallIcon="OiIfL5"
-               bigIcon="OiIfL5">
+               bigIcon="OiIfL5" extraDefs="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
                        isDebug="1" optimisation="1" targetName="Arooo"/>
@@ -86,7 +86,8 @@
       </CONFIGURATIONS>
     </XCODE_MAC>
     <LINUX_MAKE targetFolder="Builds/Linux" juceFolder="../../sdk/juce/modules"
-                extraCompilerFlags="-I../../Third-Party/FFTReal-2.11 -I../../Third-Party/FFTReal-2.11/ffft">
+                extraCompilerFlags="-I../../Third-Party/FFTReal-2.11 -I../../Third-Party/FFTReal-2.11/ffft"
+                extraDefs="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
                        targetName="Arooo"/>
@@ -94,6 +95,15 @@
                        targetName="Arooo"/>
       </CONFIGURATIONS>
     </LINUX_MAKE>
+    <VS2012 targetFolder="Builds/VisualStudio2012" libraryType="1" juceFolder="..\..\sdk\juce\modules"
+            extraCompilerFlags="/I..\..\Third-Party\FFTReal-2.11 /I..\..\Third-Party\FFTReal-2.11\ffft">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="1" optimisation="1" targetName="Arooo"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="0" optimisation="2" targetName="Arooo"/>
+      </CONFIGURATIONS>
+    </VS2012>
   </EXPORTFORMATS>
   <JUCEOPTIONS/>
 </JUCERPROJECT>
