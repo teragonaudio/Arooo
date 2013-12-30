@@ -11,23 +11,25 @@
 #ifndef __InputAnalyzer_H_2F555109__
 #define __InputAnalyzer_H_2F555109__
 
-#include <stdio.h>
-#include "Constants.h"
+#include "FFTWrapper.h"
 
 static const int kNumBucketsToDisplay = 4;
 
 class FrequencyAnalyzer {
 public:
-  FrequencyAnalyzer();
-  virtual ~FrequencyAnalyzer();
+  FrequencyAnalyzer(const FFTWrapper &fft);
+
+  virtual ~FrequencyAnalyzer() {}
 
   void initialize();
   void processFFTData(const float* fftData);
 
 protected:
   void printTopBuckets();
+
 private:
-  FILE* outputFile;
+    const FFTWrapper &fftWrapper;
+
   int topBucketIndexes[kNumBucketsToDisplay];
   float topBucketValues[kNumBucketsToDisplay];
   int bucketHits[kBufferSize];

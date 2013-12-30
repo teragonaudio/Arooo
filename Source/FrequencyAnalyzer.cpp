@@ -9,25 +9,11 @@
 */
 
 #include "FrequencyAnalyzer.h"
-#include "Constants.h"
 
-FrequencyAnalyzer::FrequencyAnalyzer() {
-  outputFile = NULL;
-}
-
-FrequencyAnalyzer::~FrequencyAnalyzer() {
-  if (outputFile) {
-    printTopBuckets();
-    fprintf(outputFile, "--- Analysis finished ---\n");
-    fflush(outputFile);
-    fclose(outputFile);
-    outputFile = NULL;
-  }
+FrequencyAnalyzer::FrequencyAnalyzer(const FFTWrapper &fft) : fftWrapper(fft) {
 }
 
 void FrequencyAnalyzer::initialize() {
-  outputFile = fopen("/tmp/howl-analysis.txt", "w");
-  fprintf(outputFile, "--- Starting analysis ---\n");
   for (int i = 0; i < kBufferSize; ++i) {
     bucketHits[i] = 0;
   }
@@ -57,17 +43,15 @@ void FrequencyAnalyzer::processFFTData(const float *fftData) {
   if (topBucketIndexes[0] > 0) {
     for (int i = 0; i < kNumBucketsToDisplay; ++i) {
       bucketHits[topBucketIndexes[i]]++;
-      fprintf(outputFile, "%03d: %.02f\t ", topBucketIndexes[i], topBucketValues[i]);
+      // fprintf(outputFile, "%03d: %.02f\t ", topBucketIndexes[i], topBucketValues[i]);
     }
-    fprintf(outputFile, "\n");
   }
 }
 
 void FrequencyAnalyzer::printTopBuckets() {
-  fprintf(outputFile, "-- All non-zero buckets --\n");
   for (int i = 0; i < kBufferSize; ++i) {
     if (bucketHits[i] > 0) {
-      fprintf(outputFile, "  %d: %d\n", i, bucketHits[i]);
+      // fprintf(outputFile, "  %d: %d\n", i, bucketHits[i]);
     }
   }
 }

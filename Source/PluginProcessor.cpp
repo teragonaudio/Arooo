@@ -7,7 +7,7 @@
 
 AroooAudioProcessor::AroooAudioProcessor() :
 AudioProcessor(), ParameterObserver(),
-parameters(), eventDetector(parameters) {
+parameters(), fftWrapper(), frequencyAnalyzer(fftWrapper), eventDetector(parameters) {
     eventDetected = new VoidParameter("Event Detected");
     eventDetector.setParameter(eventDetected);
     parameters.add(eventDetected);

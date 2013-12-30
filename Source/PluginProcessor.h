@@ -65,10 +65,9 @@ private:
     ConcurrentParameterSet parameters;
     VoidParameter *eventDetected;
 
-    FrequencyAnalyzer frequencyAnalyzer;
-
-    EventDetector eventDetector;
     FFTWrapper fftWrapper;
+    FrequencyAnalyzer frequencyAnalyzer;
+    EventDetector eventDetector;
     float *fftData;
 
     // Output responders
