@@ -17,11 +17,12 @@
   ==============================================================================
 */
 
-#ifndef __JUCE_HEADER_9002020A4DD09B20__
-#define __JUCE_HEADER_9002020A4DD09B20__
+#ifndef __JUCE_HEADER_F1B68972952BE4__
+#define __JUCE_HEADER_F1B68972952BE4__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
+#include "TeragonGuiComponents.h"
 //[/Headers]
 
 
@@ -34,16 +35,15 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class MainComponent  : public Component
+class PluginEditor  : public AudioProcessorEditor
 {
 public:
     //==============================================================================
-    MainComponent ();
-    ~MainComponent();
+    PluginEditor (AudioProcessor* ownerFilter, teragon::ConcurrentParameterSet& p, teragon::ResourceCache *r);
+    ~PluginEditor();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    void logText(const String& message);
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -56,6 +56,8 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+    teragon::ConcurrentParameterSet &parameters;
+    teragon::ResourceCache *resources;
     //[/UserVariables]
 
     //==============================================================================
@@ -78,10 +80,10 @@ private:
 
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginEditor)
 };
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
 
-#endif   // __JUCE_HEADER_9002020A4DD09B20__
+#endif   // __JUCE_HEADER_F1B68972952BE4__
