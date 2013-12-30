@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="LqUkDq" name="Arooo" projectType="guiapp" version="1.0.0"
-              bundleIdentifier="com.teragonaudio.Arooo" jucerVersion="3.0.0"
-              companyName="Teragon Audio">
+<JUCERPROJECT id="LqUkDq" name="Arooo" projectType="audioplug" version="1.0.0"
+              bundleIdentifier="com.teragonaudio.Arooo" jucerVersion="3.1.0"
+              companyName="Teragon Audio" includeBinaryInAppConfig="1" buildVST="1"
+              buildAU="1" pluginName="Arooo" pluginDesc="Arooo" pluginManufacturer="Teragon Audio"
+              pluginManufacturerCode="Tera" pluginCode="Aroo" pluginChannelConfigs="{1, 1}, {2, 2}"
+              pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="1"
+              pluginSilenceInIsSilenceOut="1" pluginEditorRequiresKeys="0"
+              pluginAUExportPrefix="AroooAU" pluginRTASCategory="" aaxIdentifier="com.yourcompany.Arooo"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics">
   <MAINGROUP id="Bijdhi" name="Arooo">
     <GROUP id="{7F8468CF-A70E-F172-FB84-8DC1A1EAFA53}" name="Graphics">
       <FILE id="OiIfL5" name="icon.png" compile="0" resource="1" file="Graphics/icon.png"/>
@@ -64,46 +70,99 @@
     </GROUP>
   </MAINGROUP>
   <MODULES>
-    <MODULE id="juce_gui_audio" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_events" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_core" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_audio" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="1"/>
   </MODULES>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" juceFolder="../../sdk/juce/modules"
-               extraCompilerFlags="-I../../Third-Party/FFTReal-2.11" smallIcon="OiIfL5"
-               bigIcon="OiIfL5" extraDefs="">
+    <XCODE_MAC targetFolder="Builds/MacOSX" extraCompilerFlags="-I../../Third-Party/FFTReal-2.11"
+               smallIcon="OiIfL5" bigIcon="OiIfL5" extraDefs="">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
-                       isDebug="1" optimisation="1" targetName="Arooo"/>
-        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
-                       isDebug="0" optimisation="2" targetName="Arooo"/>
+        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="10.7 SDK" osxArchitecture="Native"
+                       isDebug="1" optimisation="1" targetName="Arooo" cppLibType="libc++"/>
+        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="10.7 SDK" osxArchitecture="64BitUniversal"
+                       isDebug="0" optimisation="3" targetName="Arooo" cppLibType="libc++"/>
       </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_basics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_gui_audio" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_graphics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_events" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_data_structures" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_core" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="JuceLibraryCode/modules"/>
+      </MODULEPATHS>
     </XCODE_MAC>
-    <LINUX_MAKE targetFolder="Builds/Linux" juceFolder="../../sdk/juce/modules"
-                extraCompilerFlags="-I../../Third-Party/FFTReal-2.11 -I../../Third-Party/FFTReal-2.11/ffft"
+    <LINUX_MAKE targetFolder="Builds/Linux" extraCompilerFlags="-I../../Third-Party/FFTReal-2.11 -I../../Third-Party/FFTReal-2.11/ffft"
                 extraDefs="">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
-                       targetName="Arooo"/>
-        <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="2"
-                       targetName="Arooo"/>
+        <CONFIGURATION name="Debug-i386" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
+                       targetName="Arooo" binaryPath="Builds/Linux/Debug-i386" linuxArchitecture="-m32"/>
+        <CONFIGURATION name="Release-i386" libraryPath="/usr/X11R6/lib/" isDebug="0"
+                       optimisation="3" targetName="Arooo" binaryPath="Builds/Linux/Release-i386"
+                       linuxArchitecture="-m32"/>
+        <CONFIGURATION name="Debug-x86_64" libraryPath="/usr/X11R6/lib/" isDebug="1"
+                       optimisation="1" targetName="Arooo" binaryPath="Builds/Linux/Debug-x86_64"
+                       linuxArchitecture="-m64"/>
+        <CONFIGURATION name="Release-x86_64" libraryPath="/usr/X11R6/lib/" isDebug="0"
+                       optimisation="3" targetName="Arooo" binaryPath="Builds/Linux/Release-x86_64"
+                       linuxArchitecture="-m64"/>
       </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_basics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_gui_audio" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_graphics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_events" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_data_structures" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_core" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="JuceLibraryCode/modules"/>
+      </MODULEPATHS>
     </LINUX_MAKE>
-    <VS2012 targetFolder="Builds/VisualStudio2012" libraryType="1" juceFolder="..\..\sdk\juce\modules"
-            extraCompilerFlags="/I..\..\Third-Party\FFTReal-2.11 /I..\..\Third-Party\FFTReal-2.11\ffft">
+    <VS2013 targetFolder="Builds/VisualStudio2013">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
                        isDebug="1" optimisation="1" targetName="Arooo"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="0" optimisation="2" targetName="Arooo"/>
+                       isDebug="0" optimisation="3" targetName="Arooo" useRuntimeLibDLL="0"/>
+        <CONFIGURATION name="Debug-x64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       isDebug="1" optimisation="1" targetName="Arooo"/>
+        <CONFIGURATION name="Release-x64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       isDebug="0" optimisation="3" targetName="Arooo" useRuntimeLibDLL="0"/>
       </CONFIGURATIONS>
-    </VS2012>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_basics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_gui_audio" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_graphics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_events" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_data_structures" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_core" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="JuceLibraryCode/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="JuceLibraryCode/modules"/>
+      </MODULEPATHS>
+    </VS2013>
   </EXPORTFORMATS>
   <JUCEOPTIONS/>
 </JUCERPROJECT>
