@@ -129,18 +129,17 @@
       <FILE id="NzoT4y" name="EventDetector.h" compile="0" resource="0" file="Source/EventDetector.h"/>
       <FILE id="fVQAo0" name="FFTWrapper.cpp" compile="1" resource="0" file="Source/FFTWrapper.cpp"/>
       <FILE id="bSBkGM" name="FFTWrapper.h" compile="0" resource="0" file="Source/FFTWrapper.h"/>
-      <FILE id="Inl5Nl" name="InputAnalyzer.cpp" compile="1" resource="0"
-            file="Source/InputAnalyzer.cpp"/>
-      <FILE id="lzWdG2" name="InputAnalyzer.h" compile="0" resource="0" file="Source/InputAnalyzer.h"/>
+      <FILE id="IXK8ca" name="FrequencyAnalyzer.cpp" compile="1" resource="0"
+            file="Source/FrequencyAnalyzer.cpp"/>
+      <FILE id="neAOIb" name="FrequencyAnalyzer.h" compile="0" resource="0"
+            file="Source/FrequencyAnalyzer.h"/>
       <FILE id="WOdcbq" name="InputProcessor.cpp" compile="1" resource="0"
             file="Source/InputProcessor.cpp"/>
       <FILE id="mrcJGo" name="InputProcessor.h" compile="0" resource="0"
             file="Source/InputProcessor.h"/>
-      <FILE id="WQiL5x" name="LogWrapper.cpp" compile="1" resource="0" file="Source/LogWrapper.cpp"/>
-      <FILE id="k0yILK" name="LogWrapper.h" compile="0" resource="0" file="Source/LogWrapper.h"/>
-      <FILE id="xJKEIY" name="OutputDevice.cpp" compile="1" resource="0"
-            file="Source/OutputDevice.cpp"/>
-      <FILE id="cHfXXC" name="OutputDevice.h" compile="0" resource="0" file="Source/OutputDevice.h"/>
+      <FILE id="NHRXwR" name="MidiResponder.cpp" compile="1" resource="0"
+            file="Source/MidiResponder.cpp"/>
+      <FILE id="FXMTjc" name="MidiResponder.h" compile="0" resource="0" file="Source/MidiResponder.h"/>
       <FILE id="dH5U8O" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="nswenb" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>

@@ -40,10 +40,10 @@ private:
   bool *notePlaying;
 };
 
-class OutputDevice : public EventDetectorCallback {
+class MidiResponder : public EventDetectorCallback {
 public:
-  OutputDevice();
-  virtual ~OutputDevice();
+  MidiResponder();
+  virtual ~MidiResponder();
 
   void initialize();
 protected:

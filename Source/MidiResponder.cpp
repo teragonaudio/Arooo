@@ -8,15 +8,15 @@
   ==============================================================================
 */
 
-#include "OutputDevice.h"
+#include "MidiResponder.h"
 
-OutputDevice::OutputDevice() {
+MidiResponder::MidiResponder() {
   midiOutput = NULL;
   midiEventTimer = NULL;
   notePlaying = false;
 }
 
-OutputDevice::~OutputDevice() {
+MidiResponder::~MidiResponder() {
   if (midiOutput) {
     midiOutput->clearAllPendingMessages();
     midiOutput->stopBackgroundThread();
@@ -29,7 +29,7 @@ OutputDevice::~OutputDevice() {
   }
 }
 
-void OutputDevice::initialize() {
+void MidiResponder::initialize() {
   // Search for the Midiflower output device
   int midiOutputDeviceIndex = -1;
   StringArray midiDevices = MidiOutput::getDevices();
@@ -60,7 +60,7 @@ void OutputDevice::initialize() {
   }
 }
 
-void OutputDevice::howlDetected() {
+void MidiResponder::howlDetected() {
   if (midiOutput && !notePlaying) {
     MidiMessage noteOnMessage = MidiMessage::noteOn(kOutputMidiChannel,
       kOutputMidiNoteNumber, (uint8)kOutputMidiNoteVelocity);

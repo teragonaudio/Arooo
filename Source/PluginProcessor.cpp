@@ -8,11 +8,27 @@
 AroooAudioProcessor::AroooAudioProcessor() :
 AudioProcessor(),
 ParameterObserver() {
+    parameters.add(new VoidParameter("Event Active"));
+    parameters.add(new VoidParameter("Analyze"));
+    parameters.add(new IntegerParameter("Tolerance", 0, 100, 75));
+    parameters.add(new FloatParameter("Cooldown", 0, 10, 0))->setUnit("Sec");
+    parameters.add(new BooleanParameter("Play Sample", false));
+    parameters.add(new VoidParameter("Load Sample"));
+    parameters.add(new BooleanParameter("Normalize Sample", true));
+    parameters.add(new BooleanParameter("Send MIDI", false));
+    parameters.add(new BooleanParameter("Send MIDI Note/CC", false));
+    parameters.add(new IntegerParameter("MIDI Channel", 0, 16, 0));
+    parameters.add(new IntegerParameter("MIDI Note", 0, 127, 0));
+    parameters.add(new IntegerParameter("MIDI Velocity", 0, 127, 127));
+    parameters.add(new BooleanParameter("Run Script", false));
+    parameters.add(new VoidParameter("Edit Script"));
+    parameters.add(new StringParameter("Log Output"));
 
     ParameterString version = ProjectInfo::projectName;
     version.append(" version ").append(ProjectInfo::versionString);
     parameters.add(new StringParameter("Version", version));
 
+    parameters.pause();
     reset();
 }
 
@@ -60,7 +76,6 @@ void AroooAudioProcessor::setStateInformation(const void *data, int sizeInBytes)
             }
         }
         parameters.processRealtimeEvents();
-        recalculateCoefficients(getSampleRate());
         reset();
     }
 }

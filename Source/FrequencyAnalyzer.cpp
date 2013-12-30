@@ -8,14 +8,14 @@
   ==============================================================================
 */
 
-#include "InputAnalyzer.h"
+#include "FrequencyAnalyzer.h"
 #include "Constants.h"
 
-InputAnalyzer::InputAnalyzer() {
+FrequencyAnalyzer::FrequencyAnalyzer() {
   outputFile = NULL;
 }
 
-InputAnalyzer::~InputAnalyzer() {
+FrequencyAnalyzer::~FrequencyAnalyzer() {
   if (outputFile) {
     printTopBuckets();
     fprintf(outputFile, "--- Analysis finished ---\n");
@@ -25,7 +25,7 @@ InputAnalyzer::~InputAnalyzer() {
   }
 }
 
-void InputAnalyzer::initialize() {
+void FrequencyAnalyzer::initialize() {
   outputFile = fopen("/tmp/howl-analysis.txt", "w");
   fprintf(outputFile, "--- Starting analysis ---\n");
   for (int i = 0; i < kBufferSize; ++i) {
@@ -33,7 +33,7 @@ void InputAnalyzer::initialize() {
   }
 }
 
-void InputAnalyzer::processFFTData(const float *fftData) {
+void FrequencyAnalyzer::processFFTData(const float *fftData) {
   for (int i = 0; i < kNumBucketsToDisplay; ++i) {
     topBucketIndexes[i] = 0;
     topBucketValues[i] = 0.0f;
@@ -63,7 +63,7 @@ void InputAnalyzer::processFFTData(const float *fftData) {
   }
 }
 
-void InputAnalyzer::printTopBuckets() {
+void FrequencyAnalyzer::printTopBuckets() {
   fprintf(outputFile, "-- All non-zero buckets --\n");
   for (int i = 0; i < kBufferSize; ++i) {
     if (bucketHits[i] > 0) {

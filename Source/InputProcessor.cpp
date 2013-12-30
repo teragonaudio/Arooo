@@ -51,12 +51,12 @@ void InputProcessor::initialize() {
   audioDeviceSetup.bufferSize = kBufferSize;
   deviceManager->setAudioDeviceSetup(audioDeviceSetup, false);
   deviceManager->addAudioCallback(this);
-  outputDevice = new OutputDevice();
+  outputDevice = new MidiResponder();
   outputDevice->initialize();
 
 #if ANALYSIS_MODE
-  inputAnalyzer = new InputAnalyzer();
-  InputAnalyzer->initialize();
+  inputAnalyzer = new FrequencyAnalyzer();
+  FrequencyAnalyzer->initialize();
 #else
   eventDetector = new EventDetector();
   eventDetector->setCallback(outputDevice);

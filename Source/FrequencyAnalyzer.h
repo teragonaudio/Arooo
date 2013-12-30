@@ -16,10 +16,10 @@
 
 static const int kNumBucketsToDisplay = 4;
 
-class InputAnalyzer {
+class FrequencyAnalyzer {
 public:
-  InputAnalyzer();
-  virtual ~InputAnalyzer();
+  FrequencyAnalyzer();
+  virtual ~FrequencyAnalyzer();
 
   void initialize();
   void processFFTData(const float* fftData);

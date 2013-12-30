@@ -15,8 +15,8 @@
 #include "Constants.h"
 #include "FFTWrapper.h"
 #include "EventDetector.h"
-#include "OutputDevice.h"
-#include "InputAnalyzer.h"
+#include "MidiResponder.h"
+#include "FrequencyAnalyzer.h"
 
 class InputProcessor : public AudioIODeviceCallback {
 public:
@@ -32,9 +32,9 @@ protected:
 
 private:
   AudioDeviceManager *deviceManager;
-  OutputDevice *outputDevice;
+  MidiResponder *outputDevice;
 
-  InputAnalyzer *inputAnalyzer;
+  FrequencyAnalyzer *inputAnalyzer;
   EventDetector *eventDetector;
   FFTWrapper *fftWrapper;
   float *fftData;
