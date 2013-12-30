@@ -5,20 +5,12 @@
 #include "PluginEditor.h"
 #include "PluginParameters.h"
 #include "Resources.h"
+#include "FFTWrapper.h"
+#include "FrequencyAnalyzer.h"
+#include "EventDetector.h"
+#include "MidiResponder.h"
 
 using namespace teragon;
-
-static const float kFrequencyMin = 400.0f;
-static const float kFrequencyDefault = kFrequencyMin;
-static const float kFrequencyMax = 1400.0f;
-static const float kResonanceMin = 0.1f;
-static const float kResonanceDefault = 1.0f;
-static const float kResonanceMax = sqrtf(2.0);
-static const float kValleySizeMin = 0.1f;
-static const float kValleySizeMax = 20000.0f;
-static const float kValleySizeDefault = kValleySizeMin;
-static const float kMinimumNotchFrequency = 20.0f;
-
 
 class AroooAudioProcessor : public AudioProcessor, public ParameterObserver {
 public:
@@ -71,6 +63,17 @@ public:
 private:
     // ParameterSet and cached parameters
     ConcurrentParameterSet parameters;
+    VoidParameter *eventDetected;
+
+    FrequencyAnalyzer frequencyAnalyzer;
+
+    EventDetector eventDetector;
+    FFTWrapper fftWrapper;
+    float *fftData;
+
+    // Output responders
+    MidiResponder midiResponder;
+    bool sendMidi;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AroooAudioProcessor);
 };

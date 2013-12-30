@@ -6,20 +6,26 @@
 #endif
 
 AroooAudioProcessor::AroooAudioProcessor() :
-AudioProcessor(),
-ParameterObserver() {
-    parameters.add(new VoidParameter("Event Active"));
+AudioProcessor(), ParameterObserver(),
+parameters(), eventDetector(parameters) {
+    eventDetected = new VoidParameter("Event Detected");
+    eventDetector.setParameter(eventDetected);
+    parameters.add(eventDetected);
+
     parameters.add(new VoidParameter("Analyze"));
     parameters.add(new IntegerParameter("Tolerance", 0, 100, 75));
     parameters.add(new FloatParameter("Cooldown", 0, 10, 0))->setUnit("Sec");
+
     parameters.add(new BooleanParameter("Play Sample", false));
     parameters.add(new VoidParameter("Load Sample"));
     parameters.add(new BooleanParameter("Normalize Sample", true));
-    parameters.add(new BooleanParameter("Send MIDI", false));
-    parameters.add(new BooleanParameter("Send MIDI Note/CC", false));
-    parameters.add(new IntegerParameter("MIDI Channel", 0, 16, 0));
-    parameters.add(new IntegerParameter("MIDI Note", 0, 127, 0));
-    parameters.add(new IntegerParameter("MIDI Velocity", 0, 127, 127));
+
+    parameters.add(new BooleanParameter("Send MIDI", false))->addObserver(this);
+    parameters.add(new BooleanParameter("Send MIDI Note/CC", false))->addObserver(&midiResponder);
+    parameters.add(new IntegerParameter("MIDI Channel", 0, 16, 0))->addObserver(&midiResponder);
+    parameters.add(new IntegerParameter("MIDI Note", 0, 127, 0))->addObserver(&midiResponder);
+    parameters.add(new IntegerParameter("MIDI Velocity", 0, 127, 127))->addObserver(&midiResponder);
+
     parameters.add(new BooleanParameter("Run Script", false));
     parameters.add(new VoidParameter("Edit Script"));
     parameters.add(new StringParameter("Log Output"));
@@ -34,10 +40,30 @@ ParameterObserver() {
 
 void AroooAudioProcessor::prepareToPlay(double sampleRate, int) {
     parameters.resume();
+    fftData = new float[kBufferSize];
 }
 
 void AroooAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &midiMessages) {
     parameters.processRealtimeEvents();
+
+    // Clear out old FFT data, just to be on the safe side
+    for(int i = 0; i < kBufferSize; ++i) {
+        fftData[i] = 0.0f;
+    }
+
+    // Force mono, we don't really care about stereo processing
+    fftWrapper.doFFT(buffer.getSampleData(0), fftData);
+    eventDetector.processFFTData(fftData);
+
+    // Process realtime events again, if there was an event trigger then we must take action now
+    parameters.processRealtimeEvents();
+    if(sendMidi) {
+        MidiBuffer &midiResponderMessages = midiResponder.getMessages();
+        if(!midiResponderMessages.isEmpty()) {
+            midiMessages.addEvents(midiResponderMessages, 0, 1, 0);
+            midiResponderMessages.clear();
+        }
+    }
 
     // In case we have more outputs than inputs, we'll clear any output
     // channels that didn't contain input data, (because these aren't
@@ -49,12 +75,22 @@ void AroooAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &mi
 
 void AroooAudioProcessor::releaseResources() {
     parameters.pause();
+    delete [] fftData;
 }
 
 void AroooAudioProcessor::reset() {
 }
 
-void AroooAudioProcessor::onParameterUpdated(const Parameter *) {
+void AroooAudioProcessor::onParameterUpdated(const Parameter *parameter) {
+    if(parameter->getName() == "Send MIDI") {
+        sendMidi = (parameter->getValue() > 0.5);
+        if(sendMidi) {
+            eventDetected->addObserver(&midiResponder);
+        }
+        else {
+            eventDetected->removeObserver(&midiResponder);
+        }
+    }
 }
 
 void AroooAudioProcessor::getStateInformation(MemoryBlock &destData) {
