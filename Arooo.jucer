@@ -127,16 +127,11 @@
       <FILE id="lpRcR8" name="EventDetector.cpp" compile="1" resource="0"
             file="Source/EventDetector.cpp"/>
       <FILE id="NzoT4y" name="EventDetector.h" compile="0" resource="0" file="Source/EventDetector.h"/>
-      <FILE id="fVQAo0" name="FFTWrapper.cpp" compile="1" resource="0" file="Source/FFTWrapper.cpp"/>
       <FILE id="bSBkGM" name="FFTWrapper.h" compile="0" resource="0" file="Source/FFTWrapper.h"/>
       <FILE id="IXK8ca" name="FrequencyAnalyzer.cpp" compile="1" resource="0"
             file="Source/FrequencyAnalyzer.cpp"/>
       <FILE id="neAOIb" name="FrequencyAnalyzer.h" compile="0" resource="0"
             file="Source/FrequencyAnalyzer.h"/>
-      <FILE id="WOdcbq" name="InputProcessor.cpp" compile="1" resource="0"
-            file="Source/InputProcessor.cpp"/>
-      <FILE id="mrcJGo" name="InputProcessor.h" compile="0" resource="0"
-            file="Source/InputProcessor.h"/>
       <FILE id="NHRXwR" name="MidiResponder.cpp" compile="1" resource="0"
             file="Source/MidiResponder.cpp"/>
       <FILE id="FXMTjc" name="MidiResponder.h" compile="0" resource="0" file="Source/MidiResponder.h"/>
