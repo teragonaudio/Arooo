@@ -13,46 +13,30 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Constants.h"
-#include "EventDetector.h"
+#include "PluginParameters.h"
 
-class MidiEventTimer : public Timer {
+using namespace teragon;
+
+class MidiResponder : public ParameterObserver {
 public:
-  MidiEventTimer(MidiOutput *output) : Timer(), midiOutput(output), notePlaying(NULL) {}
-  virtual ~MidiEventTimer() {}
+    MidiResponder();
+    virtual ~MidiResponder() {}
 
-  virtual void timerCallback() {
-    midiOutput->sendMessageNow(message);
-    if (notePlaying) { *notePlaying = false; }
-    stopTimer();
-  }
+    virtual bool isRealtimePriority() const { return false; }
 
-  void setMessage(MidiMessage &message) {
-    this->message = message;
-  }
+    virtual void onParameterUpdated(const Parameter *parameter);
 
-  void setNotePlaying(bool *notePlaying) {
-    this->notePlaying = notePlaying;
-  }
+    virtual MidiBuffer &getMessages() { return messages; }
 
 private:
-  MidiOutput *midiOutput;
-  MidiMessage message;
-  bool *notePlaying;
-};
-
-class MidiResponder : public EventDetectorCallback {
-public:
-  MidiResponder();
-  virtual ~MidiResponder();
-
-  void initialize();
-protected:
-  virtual void howlDetected();
+    void onEventDetected();
 
 private:
-  MidiOutput *midiOutput;
-  MidiEventTimer *midiEventTimer;
-  bool notePlaying;
+    MidiBuffer messages;
+    bool sendNotes;
+    unsigned short channel;
+    unsigned short noteNumber;
+    unsigned short velocity;
 };
 
 #endif  // __OUTPUTDEVICE_H_B9E839E__

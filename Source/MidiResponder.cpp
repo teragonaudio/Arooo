@@ -10,43 +10,12 @@
 
 #include "MidiResponder.h"
 
-MidiResponder::MidiResponder() {
-  midiOutput = NULL;
-  midiEventTimer = NULL;
-  notePlaying = false;
+MidiResponder::MidiResponder() : ParameterObserver(),
+messages(), sendNotes(false), channel(0), noteNumber(0), velocity(127) {
 }
 
-MidiResponder::~MidiResponder() {
-  if (midiOutput) {
-    midiOutput->clearAllPendingMessages();
-    midiOutput->stopBackgroundThread();
-    delete midiOutput;
-  }
-
-  if (midiEventTimer) {
-    midiEventTimer->stopTimer();
-    delete midiEventTimer;
-  }
-}
-
+#if 0
 void MidiResponder::initialize() {
-  // Search for the Midiflower output device
-  int midiOutputDeviceIndex = -1;
-  StringArray midiDevices = MidiOutput::getDevices();
-  for (int i = 0; i < midiDevices.size(); i++) {
-    String deviceName = midiDevices[i];
-    if (deviceName.equalsIgnoreCase("Midiflower")) {
-      midiOutputDeviceIndex = i;
-      break;
-    }
-#if USE_IAC_DRIVER
-    if (deviceName.equalsIgnoreCase("IAC Driver")) {
-      midiOutputDeviceIndex = i;
-      break;
-    }
-#endif
-  }
-
   if (midiOutputDeviceIndex >= 0) {
     midiOutput = MidiOutput::openDevice(midiOutputDeviceIndex);
     String message = "Using MIDI output device: ";
@@ -59,17 +28,34 @@ void MidiResponder::initialize() {
     FileLogger::getCurrentLogger()->writeToLog("No preferred MIDI device found");
   }
 }
+#endif
 
-void MidiResponder::howlDetected() {
-  if (midiOutput && !notePlaying) {
-    MidiMessage noteOnMessage = MidiMessage::noteOn(kOutputMidiChannel,
-      kOutputMidiNoteNumber, (uint8)kOutputMidiNoteVelocity);
-    midiOutput->sendMessageNow(noteOnMessage);
-    MidiMessage noteOffMessage = MidiMessage::noteOff(kOutputMidiChannel,
-      kOutputMidiNoteNumber, (uint8)kOutputMidiNoteVelocity);
-    midiEventTimer->setMessage(noteOffMessage);
-    midiEventTimer->setNotePlaying(&notePlaying);
-    midiEventTimer->startTimer(kOutputMidiNoteDurationMs);
-    notePlaying = true;
-  }
+void MidiResponder::onParameterUpdated(const Parameter *parameter) {
+    if(parameter->getName() == "Event Detected") {
+        onEventDetected();
+    }
+    else if(parameter->getName() == "Send MIDI Note/CC") {
+        sendNotes = (parameter->getValue() > 0.5);
+    }
+    else if(parameter->getName() == "MIDI Channel") {
+        channel = (unsigned short)parameter->getValue();
+    }
+    else if(parameter->getName() == "MIDI Note") {
+        noteNumber = (unsigned short)parameter->getValue();
+    }
+    else if(parameter->getName() == "MIDI Velocity") {
+        velocity = (unsigned short)parameter->getValue();
+    }
+}
+
+void MidiResponder::onEventDetected() {
+    // TODO: Should send a corresponding note off message later if sending notes -- how to do this?
+    MidiMessage message;
+    if(sendNotes) {
+        message = MidiMessage::noteOn(channel, noteNumber, (uint8)velocity);
+    }
+    else {
+        message = MidiMessage::controllerEvent(channel, noteNumber, velocity);
+    }
+    messages.addEvent(message, 0);
 }
