@@ -12,30 +12,29 @@
 #define __EventDetector_H_F359D429__
 
 #include "Constants.h"
+#include "PluginParameters.h"
 
-class EventDetectorCallback {
+using namespace teragon;
+
+class EventDetector : public ParameterObserver {
 public:
-  EventDetectorCallback() {}
-  virtual ~EventDetectorCallback() {}
+    EventDetector(ConcurrentParameterSet &parameters);
 
-  virtual void howlDetected() = 0;
-};
+    virtual ~EventDetector() {}
 
-class EventDetector {
-public:
-  EventDetector();
-  virtual ~EventDetector();
+    void processFFTData(const float *fftData);
 
-  void processFFTData(const float* fftData);
+    virtual bool isRealtimePriority() const { return true; }
+    virtual void setParameter(Parameter *parameter) { eventDetected = parameter; }
 
-  void setCallback(EventDetectorCallback *callback);
+    virtual void onParameterUpdated(const Parameter *parameter);
 
 private:
-  void howlDetected();
-  void resetBucketPoints();
+    void resetBucketPoints();
 
-  EventDetectorCallback *callback;
-  int bucketPoints[kHowlBucketNumIndexes];
+    ConcurrentParameterSet &parameters;
+    Parameter *eventDetected;
+    int bucketPoints[kHowlBucketNumIndexes];
 };
 
 #endif  // __EventDetector_H_F359D429__

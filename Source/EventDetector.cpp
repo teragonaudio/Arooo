@@ -8,18 +8,11 @@
   ==============================================================================
 */
 
-#include <stdio.h>
-#include "../JuceLibraryCode/JuceHeader.h"
 #include "EventDetector.h"
-#include "Constants.h"
 
-EventDetector::EventDetector() {
-  callback = NULL;
+EventDetector::EventDetector(ConcurrentParameterSet &inParameters) :
+parameters(inParameters) {
   resetBucketPoints();
-}
-
-EventDetector::~EventDetector() {
-
 }
 
 void EventDetector::resetBucketPoints() {
@@ -28,7 +21,7 @@ void EventDetector::resetBucketPoints() {
   }
 }
 
-void EventDetector::processFFTData(float const *fftData) {
+void EventDetector::processFFTData(const float *fftData) {
   int howlDetectionPoints = 0;
   for (int i = 0; i < kHowlBucketNumIndexes; ++i) {
     if (fftData[kHowlBucketIndexes[i]] >= kBucketMinimumStrength) {
@@ -44,25 +37,11 @@ void EventDetector::processFFTData(float const *fftData) {
   }
 
   if (howlDetectionPoints > kHowlDetectionNumPointsNeeded) {
-    howlDetected();
+      parameters.set(eventDetected, 1.0, this);
+      resetBucketPoints();
   }
 }
 
-void EventDetector::howlDetected() {
-  Time currentTime = Time::getCurrentTime();
-  String message = "Howl detected at ";
-  message += currentTime.formatted("%H:%M.%S");
-  Logger::getCurrentLogger()->writeToLog(message);
-
-  if (callback != NULL) {
-    callback->howlDetected();
-  }
-  resetBucketPoints();
+void EventDetector::onParameterUpdated(const Parameter *parameter) {
+    // TODO: Set tolerance, cooldown
 }
-
-void EventDetector::setCallback(EventDetectorCallback *callback) {
-  this->callback = callback;
-}
-
-
-
