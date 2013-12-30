@@ -45,7 +45,7 @@ PluginEditor::PluginEditor (AudioProcessor* ownerFilter, teragon::ConcurrentPara
     logOutput->setText (String::empty);
 
     addAndMakeVisible (eventLight = new teragon::IndicatorLight (parameters,
-                                                                 "Event Active",
+                                                                 "Event Detected",
                                                                  resources));
     eventLight->setName ("event light");
 
@@ -219,7 +219,7 @@ BEGIN_JUCER_METADATA
               retKeyStartsLine="1" readonly="1" scrollbars="1" caret="0" popupmenu="0"/>
   <GENERICCOMPONENT name="event light" id="74b007b6b7706f07" memberName="eventLight"
                     virtualName="teragon::IndicatorLight" explicitFocusOrder="0"
-                    pos="16 24 24 24" class="Component" params="parameters,&#10;&quot;Event Active&quot;,&#10;resources"/>
+                    pos="16 24 24 24" class="Component" params="parameters,&#10;&quot;Event Detected&quot;,&#10;resources"/>
   <GENERICCOMPONENT name="tolerance knob" id="9df4190ff8e07930" memberName="toleranceKnob"
                     virtualName="teragon::ImageKnobSmall" explicitFocusOrder="0"
                     pos="16 62 66 66" class="Component" params="parameters,&#10;&quot;Tolerance&quot;,&#10;resources"/>
