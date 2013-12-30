@@ -47,10 +47,8 @@
 #include <string.h> /* for memcpy() */
 #include <sys/types.h> /* for off_t */
 #if defined _MSC_VER || defined __BORLANDC__ || defined __MINGW32__
-#if _MSC_VER <= 1700 || defined __BORLANDC__ /* @@@ [2G limit] */
 #define fseeko fseek
 #define ftello ftell
-#endif
 #endif
 #include "../assert.h"
 #include "../alloc.h"
@@ -788,10 +786,10 @@ static FLAC__StreamEncoderInitStatus init_stream_internal_enc(
 #endif
 	/* keep track of any SEEKTABLE block */
 	if(0 != encoder->protected_->metadata && encoder->protected_->num_metadata_blocks > 0) {
-		unsigned i;
-		for(i = 0; i < encoder->protected_->num_metadata_blocks; i++) {
-			if(0 != encoder->protected_->metadata[i] && encoder->protected_->metadata[i]->type == FLAC__METADATA_TYPE_SEEKTABLE) {
-				encoder->private_->seek_table = &encoder->protected_->metadata[i]->data.seek_table;
+		unsigned j;
+		for(j = 0; j < encoder->protected_->num_metadata_blocks; j++) {
+			if(0 != encoder->protected_->metadata[j] && encoder->protected_->metadata[j]->type == FLAC__METADATA_TYPE_SEEKTABLE) {
+				encoder->private_->seek_table = &encoder->protected_->metadata[j]->data.seek_table;
 				break; /* take only the first one */
 			}
 		}
@@ -1487,7 +1485,7 @@ FLAC_API FLAC__bool FLAC__stream_encoder_set_compression_level(FLAC__StreamEncod
 #else
 	encoder->protected_->num_apodizations = 1;
 	encoder->protected_->apodizations[0].type = FLAC__APODIZATION_TUKEY;
-	encoder->protected_->apodizations[0].parameters.tukey.p = 0.5;
+	encoder->protected_->apodizations[0].parameters.tukey.p = 0.5f;
 #endif
 #endif
 	ok &= FLAC__stream_encoder_set_max_lpc_order               (encoder, compression_levels_[value].max_lpc_order);
@@ -1600,7 +1598,7 @@ FLAC_API FLAC__bool FLAC__stream_encoder_set_apodization(FLAC__StreamEncoder *en
 	if(encoder->protected_->num_apodizations == 0) {
 		encoder->protected_->num_apodizations = 1;
 		encoder->protected_->apodizations[0].type = FLAC__APODIZATION_TUKEY;
-		encoder->protected_->apodizations[0].parameters.tukey.p = 0.5;
+		encoder->protected_->apodizations[0].parameters.tukey.p = 0.5f;
 	}
 #endif
 	return true;
@@ -2141,7 +2139,7 @@ void set_defaults_enc(FLAC__StreamEncoder *encoder)
 #ifndef FLAC__INTEGER_ONLY_LIBRARY
 	encoder->protected_->num_apodizations = 1;
 	encoder->protected_->apodizations[0].type = FLAC__APODIZATION_TUKEY;
-	encoder->protected_->apodizations[0].parameters.tukey.p = 0.5;
+	encoder->protected_->apodizations[0].parameters.tukey.p = 0.5f;
 #endif
 	encoder->protected_->max_lpc_order = 0;
 	encoder->protected_->qlp_coeff_precision = 0;
@@ -2660,7 +2658,7 @@ void update_metadata_(const FLAC__StreamEncoder *encoder)
 			b[3] = (FLAC__byte)xx; xx >>= 8;
 			b[2] = (FLAC__byte)xx; xx >>= 8;
 			b[1] = (FLAC__byte)xx; xx >>= 8;
-			b[0] = (FLAC__byte)xx; xx >>= 8;
+			b[0] = (FLAC__byte)xx; //xx >>= 8;
 			xx = encoder->private_->seek_table->points[i].stream_offset;
 			b[15] = (FLAC__byte)xx; xx >>= 8;
 			b[14] = (FLAC__byte)xx; xx >>= 8;
@@ -2669,10 +2667,10 @@ void update_metadata_(const FLAC__StreamEncoder *encoder)
 			b[11] = (FLAC__byte)xx; xx >>= 8;
 			b[10] = (FLAC__byte)xx; xx >>= 8;
 			b[9] = (FLAC__byte)xx; xx >>= 8;
-			b[8] = (FLAC__byte)xx; xx >>= 8;
+			b[8] = (FLAC__byte)xx; //xx >>= 8;
 			x = encoder->private_->seek_table->points[i].frame_samples;
 			b[17] = (FLAC__byte)x; x >>= 8;
-			b[16] = (FLAC__byte)x; x >>= 8;
+			b[16] = (FLAC__byte)x; //x >>= 8;
 			if(encoder->private_->write_callback(encoder, b, 18, 0, 0, encoder->private_->client_data) != FLAC__STREAM_ENCODER_WRITE_STATUS_OK) {
 				encoder->protected_->state = FLAC__STREAM_ENCODER_CLIENT_ERROR;
 				return;

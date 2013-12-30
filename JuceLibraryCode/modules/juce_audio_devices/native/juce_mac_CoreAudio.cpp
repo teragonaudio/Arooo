@@ -1,24 +1,23 @@
 /*
   ==============================================================================
 
-   This file is part of the JUCE library - "Jules' Utility Class Extensions"
-   Copyright 2004-11 by Raw Material Software Ltd.
+   This file is part of the JUCE library.
+   Copyright (c) 2013 - Raw Material Software Ltd.
 
-  ------------------------------------------------------------------------------
+   Permission is granted to use this software under the terms of either:
+   a) the GPL v2 (or any later version)
+   b) the Affero GPL v3
 
-   JUCE can be redistributed and/or modified under the terms of the GNU General
-   Public License (Version 2), as published by the Free Software Foundation.
-   A copy of the license is included in the JUCE distribution, or can be found
-   online at www.gnu.org/licenses.
+   Details of these licenses can be found at: www.gnu.org/licenses
 
    JUCE is distributed in the hope that it will be useful, but WITHOUT ANY
    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
    A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-  ------------------------------------------------------------------------------
+   ------------------------------------------------------------------------------
 
    To release a closed-source product which uses JUCE, commercial licenses are
-   available: visit www.rawmaterialsoftware.com/juce for more information.
+   available: visit www.juce.com for more information.
 
   ==============================================================================
 */
@@ -30,27 +29,133 @@
 #endif
 
 //==============================================================================
+struct SystemVol
+{
+    SystemVol (AudioObjectPropertySelector selector)
+        : outputDeviceID (kAudioObjectUnknown)
+    {
+        addr.mScope    = kAudioObjectPropertyScopeGlobal;
+        addr.mElement  = kAudioObjectPropertyElementMaster;
+        addr.mSelector = kAudioHardwarePropertyDefaultOutputDevice;
+
+        if (AudioHardwareServiceHasProperty (kAudioObjectSystemObject, &addr))
+        {
+            UInt32 deviceIDSize = sizeof (outputDeviceID);
+            OSStatus status = AudioHardwareServiceGetPropertyData (kAudioObjectSystemObject, &addr, 0,
+                                                                   nullptr, &deviceIDSize, &outputDeviceID);
+
+            if (status == noErr)
+            {
+                addr.mElement  = kAudioObjectPropertyElementMaster;
+                addr.mSelector = selector;
+                addr.mScope    = kAudioDevicePropertyScopeOutput;
+
+                if (! AudioHardwareServiceHasProperty (outputDeviceID, &addr))
+                    outputDeviceID = kAudioObjectUnknown;
+            }
+        }
+    }
+
+    float getGain()
+    {
+        Float32 gain = 0;
+
+        if (outputDeviceID != kAudioObjectUnknown)
+        {
+            UInt32 size = sizeof (gain);
+            AudioHardwareServiceGetPropertyData (outputDeviceID, &addr,
+                                                 0, nullptr, &size, &gain);
+        }
+
+        return (float) gain;
+    }
+
+    bool setGain (float gain)
+    {
+        if (outputDeviceID != kAudioObjectUnknown && canSetVolume())
+        {
+            Float32 newVolume = gain;
+            UInt32 size = sizeof (newVolume);
+
+            return AudioHardwareServiceSetPropertyData (outputDeviceID, &addr, 0, nullptr,
+                                                        size, &newVolume) == noErr;
+        }
+
+        return false;
+    }
+
+    bool isMuted()
+    {
+        UInt32 muted = 0;
+
+        if (outputDeviceID != kAudioObjectUnknown)
+        {
+            UInt32 size = sizeof (muted);
+            AudioHardwareServiceGetPropertyData (outputDeviceID, &addr,
+                                                 0, nullptr, &size, &muted);
+        }
+
+        return muted != 0;
+    }
+
+    bool setMuted (bool mute)
+    {
+        if (outputDeviceID != kAudioObjectUnknown && canSetVolume())
+        {
+            UInt32 newMute = mute ? 1 : 0;
+            UInt32 size = sizeof (newMute);
+
+            return AudioHardwareServiceSetPropertyData (outputDeviceID, &addr, 0, nullptr,
+                                                        size, &newMute) == noErr;
+        }
+
+        return false;
+    }
+
+private:
+    AudioDeviceID outputDeviceID;
+    AudioObjectPropertyAddress addr;
+
+    bool canSetVolume()
+    {
+        Boolean isSettable = NO;
+        return AudioHardwareServiceIsPropertySettable (outputDeviceID, &addr, &isSettable) == noErr
+                 && isSettable;
+    }
+};
+
+#define JUCE_SYSTEMAUDIOVOL_IMPLEMENTED 1
+float JUCE_CALLTYPE SystemAudioVolume::getGain()              { return SystemVol (kAudioHardwareServiceDeviceProperty_VirtualMasterVolume).getGain(); }
+bool  JUCE_CALLTYPE SystemAudioVolume::setGain (float gain)   { return SystemVol (kAudioHardwareServiceDeviceProperty_VirtualMasterVolume).setGain (gain); }
+bool  JUCE_CALLTYPE SystemAudioVolume::isMuted()              { return SystemVol (kAudioDevicePropertyMute).isMuted(); }
+bool  JUCE_CALLTYPE SystemAudioVolume::setMuted (bool mute)   { return SystemVol (kAudioDevicePropertyMute).setMuted (mute); }
+
+//==============================================================================
+struct CoreAudioClasses
+{
+
+class CoreAudioIODevice;
+
+//==============================================================================
 class CoreAudioInternal  : private Timer
 {
 public:
-    //==============================================================================
-    CoreAudioInternal (AudioDeviceID id)
-       : inputLatency (0),
+    CoreAudioInternal (CoreAudioIODevice& d, AudioDeviceID id, bool isSlave)
+       : owner (d),
+         inputLatency (0),
          outputLatency (0),
          callback (nullptr),
         #if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
          audioProcID (0),
         #endif
-         isSlaveDevice (false),
+         isSlaveDevice (isSlave),
          deviceID (id),
          started (false),
          sampleRate (0),
          bufferSize (512),
          numInputChans (0),
          numOutputChans (0),
-         callbacksAllowed (true),
-         numInputChannelInfos (0),
-         numOutputChannelInfos (0)
+         callbacksAllowed (true)
     {
         jassert (deviceID != 0);
 
@@ -84,17 +189,25 @@ public:
         tempInputBuffers.calloc ((size_t) numInputChans + 2);
         tempOutputBuffers.calloc ((size_t) numOutputChans + 2);
 
-        int i, count = 0;
-        for (i = 0; i < numInputChans; ++i)
+        int count = 0;
+        for (int i = 0; i < numInputChans; ++i)
             tempInputBuffers[i] = audioBuffer + count++ * tempBufSize;
 
-        for (i = 0; i < numOutputChans; ++i)
+        for (int i = 0; i < numOutputChans; ++i)
             tempOutputBuffers[i] = audioBuffer + count++ * tempBufSize;
     }
 
-    // returns the number of actual available channels
-    void fillInChannelInfo (const bool input)
+    struct CallbackDetailsForChannel
     {
+        int streamNum;
+        int dataOffsetSamples;
+        int dataStrideSamples;
+    };
+
+    // returns the number of actual available channels
+    StringArray getChannelInfo (const bool input, Array<CallbackDetailsForChannel>& newChannelInfo) const
+    {
+        StringArray newNames;
         int chanNum = 0;
         UInt32 size;
 
@@ -105,7 +218,7 @@ public:
 
         if (OK (AudioObjectGetPropertyDataSize (deviceID, &pa, 0, 0, &size)))
         {
-            HeapBlock <AudioBufferList> bufList;
+            HeapBlock<AudioBufferList> bufList;
             bufList.calloc (size, 1);
 
             if (OK (AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, bufList)))
@@ -130,42 +243,122 @@ public:
                                 name = String::fromUTF8 (channelName, (int) nameSize);
                         }
 
-                        if (input)
+                        if ((input ? activeInputChans : activeOutputChans) [chanNum])
                         {
-                            if (activeInputChans[chanNum])
-                            {
-                                inputChannelInfo [numInputChannelInfos].streamNum = i;
-                                inputChannelInfo [numInputChannelInfos].dataOffsetSamples = (int) j;
-                                inputChannelInfo [numInputChannelInfos].dataStrideSamples = (int) b.mNumberChannels;
-                                ++numInputChannelInfos;
-                            }
-
-                            if (name.isEmpty())
-                                name << "Input " << (chanNum + 1);
-
-                            inChanNames.add (name);
-                        }
-                        else
-                        {
-                            if (activeOutputChans[chanNum])
-                            {
-                                outputChannelInfo [numOutputChannelInfos].streamNum = i;
-                                outputChannelInfo [numOutputChannelInfos].dataOffsetSamples = (int) j;
-                                outputChannelInfo [numOutputChannelInfos].dataStrideSamples = (int) b.mNumberChannels;
-                                ++numOutputChannelInfos;
-                            }
-
-                            if (name.isEmpty())
-                                name << "Output " << (chanNum + 1);
-
-                            outChanNames.add (name);
+                            CallbackDetailsForChannel info = { i, (int) j, (int) b.mNumberChannels };
+                            newChannelInfo.add (info);
                         }
 
+                        if (name.isEmpty())
+                            name << (input ? "Input " : "Output ") << (chanNum + 1);
+
+                        newNames.add (name);
                         ++chanNum;
                     }
                 }
             }
         }
+
+        return newNames;
+    }
+
+    Array<double> getSampleRatesFromDevice() const
+    {
+        Array<double> newSampleRates;
+        String rates;
+
+        AudioObjectPropertyAddress pa;
+        pa.mScope = kAudioObjectPropertyScopeWildcard;
+        pa.mElement = kAudioObjectPropertyElementMaster;
+        pa.mSelector = kAudioDevicePropertyAvailableNominalSampleRates;
+        UInt32 size = 0;
+
+        if (OK (AudioObjectGetPropertyDataSize (deviceID, &pa, 0, 0, &size)))
+        {
+            HeapBlock <AudioValueRange> ranges;
+            ranges.calloc (size, 1);
+
+            if (OK (AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, ranges)))
+            {
+                static const double possibleRates[] = { 44100.0, 48000.0, 88200.0, 96000.0, 176400.0, 192000.0 };
+
+                for (int i = 0; i < numElementsInArray (possibleRates); ++i)
+                {
+                    for (int j = size / (int) sizeof (AudioValueRange); --j >= 0;)
+                    {
+                        if (possibleRates[i] >= ranges[j].mMinimum - 2 && possibleRates[i] <= ranges[j].mMaximum + 2)
+                        {
+                            newSampleRates.add (possibleRates[i]);
+                            rates << possibleRates[i] << ' ';
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (newSampleRates.size() == 0 && sampleRate > 0)
+        {
+            newSampleRates.add (sampleRate);
+            rates << sampleRate;
+        }
+
+        JUCE_COREAUDIOLOG ("rates: " + rates);
+        return newSampleRates;
+    }
+
+    Array<int> getBufferSizesFromDevice() const
+    {
+        Array<int> newBufferSizes;
+
+        AudioObjectPropertyAddress pa;
+        pa.mScope = kAudioObjectPropertyScopeWildcard;
+        pa.mElement = kAudioObjectPropertyElementMaster;
+        pa.mSelector = kAudioDevicePropertyBufferFrameSizeRange;
+        UInt32 size = 0;
+
+        if (OK (AudioObjectGetPropertyDataSize (deviceID, &pa, 0, 0, &size)))
+        {
+            HeapBlock <AudioValueRange> ranges;
+            ranges.calloc (size, 1);
+
+            if (OK (AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, ranges)))
+            {
+                newBufferSizes.add ((int) (ranges[0].mMinimum + 15) & ~15);
+
+                for (int i = 32; i < 2048; i += 32)
+                {
+                    for (int j = size / (int) sizeof (AudioValueRange); --j >= 0;)
+                    {
+                        if (i >= ranges[j].mMinimum && i <= ranges[j].mMaximum)
+                        {
+                            newBufferSizes.addIfNotAlreadyThere (i);
+                            break;
+                        }
+                    }
+                }
+
+                if (bufferSize > 0)
+                    newBufferSizes.addIfNotAlreadyThere (bufferSize);
+            }
+        }
+
+        if (newBufferSizes.size() == 0 && bufferSize > 0)
+            newBufferSizes.add (bufferSize);
+
+        return newBufferSizes;
+    }
+
+    int getLatencyFromDevice (AudioObjectPropertyScope scope) const
+    {
+        UInt32 lat = 0;
+        UInt32 size = sizeof (lat);
+        AudioObjectPropertyAddress pa;
+        pa.mElement = kAudioObjectPropertyElementMaster;
+        pa.mSelector = kAudioDevicePropertyLatency;
+        pa.mScope = scope;
+        AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, &lat);
+        return (int) lat;
     }
 
     void updateDetailsFromDevice()
@@ -175,8 +368,8 @@ public:
         if (deviceID == 0)
             return;
 
-        const ScopedLock sl (callbackLock);
-
+        // this collects all the new details from the device without any locking, then
+        // locks + swaps them afterwards.
         AudioObjectPropertyAddress pa;
         pa.mScope = kAudioObjectPropertyScopeWildcard;
         pa.mElement = kAudioObjectPropertyElementMaster;
@@ -184,8 +377,7 @@ public:
         UInt32 isAlive;
         UInt32 size = sizeof (isAlive);
         pa.mSelector = kAudioDevicePropertyDeviceIsAlive;
-        if (OK (AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, &isAlive))
-             && isAlive == 0)
+        if (OK (AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, &isAlive)) && isAlive == 0)
             return;
 
         Float64 sr;
@@ -194,114 +386,36 @@ public:
         if (OK (AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, &sr)))
             sampleRate = sr;
 
-        UInt32 framesPerBuf;
+        UInt32 framesPerBuf = bufferSize;
         size = sizeof (framesPerBuf);
         pa.mSelector = kAudioDevicePropertyBufferFrameSize;
-        if (OK (AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, &framesPerBuf)))
-        {
-            bufferSize = (int) framesPerBuf;
-            allocateTempBuffers();
-        }
+        AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, &framesPerBuf);
 
-        bufferSizes.clear();
+        Array<int> newBufferSizes (getBufferSizesFromDevice());
+        Array<double> newSampleRates (getSampleRatesFromDevice());
 
-        pa.mSelector = kAudioDevicePropertyBufferFrameSizeRange;
-
-        if (OK (AudioObjectGetPropertyDataSize (deviceID, &pa, 0, 0, &size)))
-        {
-            HeapBlock <AudioValueRange> ranges;
-            ranges.calloc (size, 1);
-
-            if (OK (AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, ranges)))
-            {
-                bufferSizes.add ((int) (ranges[0].mMinimum + 15) & ~15);
-
-                for (int i = 32; i < 2048; i += 32)
-                {
-                    for (int j = size / (int) sizeof (AudioValueRange); --j >= 0;)
-                    {
-                        if (i >= ranges[j].mMinimum && i <= ranges[j].mMaximum)
-                        {
-                            bufferSizes.addIfNotAlreadyThere (i);
-                            break;
-                        }
-                    }
-                }
-
-                if (bufferSize > 0)
-                    bufferSizes.addIfNotAlreadyThere (bufferSize);
-            }
-        }
-
-        if (bufferSizes.size() == 0 && bufferSize > 0)
-            bufferSizes.add (bufferSize);
-
-        sampleRates.clear();
-        const double possibleRates[] = { 44100.0, 48000.0, 88200.0, 96000.0, 176400.0, 192000.0 };
-        String rates;
-
-        pa.mSelector = kAudioDevicePropertyAvailableNominalSampleRates;
-
-        if (OK (AudioObjectGetPropertyDataSize (deviceID, &pa, 0, 0, &size)))
-        {
-            HeapBlock <AudioValueRange> ranges;
-            ranges.calloc (size, 1);
-
-            if (OK (AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, ranges)))
-            {
-                for (int i = 0; i < numElementsInArray (possibleRates); ++i)
-                {
-                    bool ok = false;
-
-                    for (int j = size / (int) sizeof (AudioValueRange); --j >= 0;)
-                        if (possibleRates[i] >= ranges[j].mMinimum - 2 && possibleRates[i] <= ranges[j].mMaximum + 2)
-                            ok = true;
-
-                    if (ok)
-                    {
-                        sampleRates.add (possibleRates[i]);
-                        rates << possibleRates[i] << ' ';
-                    }
-                }
-            }
-        }
-
-        if (sampleRates.size() == 0 && sampleRate > 0)
-        {
-            sampleRates.add (sampleRate);
-            rates << sampleRate;
-        }
-
-        JUCE_COREAUDIOLOG ("sr: " + rates);
-
-        inputLatency = 0;
-        outputLatency = 0;
-        UInt32 lat;
-        size = sizeof (lat);
-        pa.mSelector = kAudioDevicePropertyLatency;
-        pa.mScope = kAudioDevicePropertyScopeInput;
-        if (AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, &lat) == noErr)
-            inputLatency = (int) lat;
-
-        pa.mScope = kAudioDevicePropertyScopeOutput;
-        size = sizeof (lat);
-
-        if (AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, &lat) == noErr)
-            outputLatency = (int) lat;
-
+        inputLatency  = getLatencyFromDevice (kAudioDevicePropertyScopeInput);
+        outputLatency = getLatencyFromDevice (kAudioDevicePropertyScopeOutput);
         JUCE_COREAUDIOLOG ("lat: " + String (inputLatency) + " " + String (outputLatency));
 
-        inChanNames.clear();
-        outChanNames.clear();
+        Array<CallbackDetailsForChannel> newInChans, newOutChans;
+        StringArray newInNames  (getChannelInfo (true,  newInChans));
+        StringArray newOutNames (getChannelInfo (false, newOutChans));
 
-        inputChannelInfo.calloc ((size_t) numInputChans + 2);
-        numInputChannelInfos = 0;
+        // after getting the new values, lock + apply them
+        const ScopedLock sl (callbackLock);
 
-        outputChannelInfo.calloc ((size_t) numOutputChans + 2);
-        numOutputChannelInfos = 0;
+        bufferSize = (int) framesPerBuf;
+        allocateTempBuffers();
 
-        fillInChannelInfo (true);
-        fillInChannelInfo (false);
+        sampleRates.swapWith (newSampleRates);
+        bufferSizes.swapWith (newBufferSizes);
+
+        inChanNames.swapWith (newInNames);
+        outChanNames.swapWith (newOutNames);
+
+        inputChannelInfo.swapWith (newInChans);
+        outputChannelInfo.swapWith (newOutChans);
     }
 
     //==============================================================================
@@ -568,7 +682,7 @@ public:
             {
                 for (int i = numInputChans; --i >= 0;)
                 {
-                    const CallbackDetailsForChannel& info = inputChannelInfo[i];
+                    const CallbackDetailsForChannel& info = inputChannelInfo.getReference(i);
                     float* dest = tempInputBuffers [i];
                     const float* src = ((const float*) inInputData->mBuffers[info.streamNum].mData)
                                         + info.dataOffsetSamples;
@@ -613,7 +727,7 @@ public:
 
                 for (int i = numOutputChans; --i >= 0;)
                 {
-                    const CallbackDetailsForChannel& info = outputChannelInfo[i];
+                    const CallbackDetailsForChannel& info = outputChannelInfo.getReference(i);
                     const float* src = tempOutputBuffers [i];
                     float* dest = ((float*) outOutputData->mBuffers[info.streamNum].mData)
                                     + info.dataOffsetSamples;
@@ -632,9 +746,9 @@ public:
         }
         else
         {
-            for (int i = jmin (numOutputChans, numOutputChannelInfos); --i >= 0;)
+            for (int i = jmin (numOutputChans, outputChannelInfo.size()); --i >= 0;)
             {
-                const CallbackDetailsForChannel& info = outputChannelInfo[i];
+                const CallbackDetailsForChannel& info = outputChannelInfo.getReference(i);
                 float* dest = ((float*) outOutputData->mBuffers[info.streamNum].mData)
                                 + info.dataOffsetSamples;
                 const int stride = info.dataStrideSamples;
@@ -658,7 +772,7 @@ public:
             startTimer (100);
     }
 
-    void timerCallback()
+    void timerCallback() override
     {
         stopTimer();
         JUCE_COREAUDIOLOG ("CoreAudio device changed callback");
@@ -668,57 +782,11 @@ public:
         updateDetailsFromDevice();
 
         if (oldBufferSize != bufferSize || oldSampleRate != sampleRate)
-        {
-            callbacksAllowed = false;
-            stop (false);
-            updateDetailsFromDevice();
-            callbacksAllowed = true;
-        }
-    }
-
-    CoreAudioInternal* getRelatedDevice() const
-    {
-        UInt32 size = 0;
-        ScopedPointer <CoreAudioInternal> result;
-
-        AudioObjectPropertyAddress pa;
-        pa.mSelector = kAudioDevicePropertyRelatedDevices;
-        pa.mScope = kAudioObjectPropertyScopeWildcard;
-        pa.mElement = kAudioObjectPropertyElementMaster;
-
-        if (deviceID != 0
-             && AudioObjectGetPropertyDataSize (deviceID, &pa, 0, 0, &size) == noErr
-             && size > 0)
-        {
-            HeapBlock <AudioDeviceID> devs;
-            devs.calloc (size, 1);
-
-            if (OK (AudioObjectGetPropertyData (deviceID, &pa, 0, 0, &size, devs)))
-            {
-                for (unsigned int i = 0; i < size / sizeof (AudioDeviceID); ++i)
-                {
-                    if (devs[i] != deviceID && devs[i] != 0)
-                    {
-                        result = new CoreAudioInternal (devs[i]);
-
-                        const bool thisIsInput = inChanNames.size() > 0 && outChanNames.size() == 0;
-                        const bool otherIsInput = result->inChanNames.size() > 0 && result->outChanNames.size() == 0;
-
-                        if (thisIsInput != otherIsInput
-                             || (inChanNames.size() + outChanNames.size() == 0)
-                             || (result->inChanNames.size() + result->outChanNames.size()) == 0)
-                            break;
-
-                        result = 0;
-                    }
-                }
-            }
-        }
-
-        return result.release();
+            owner.restart();
     }
 
     //==============================================================================
+    CoreAudioIODevice& owner;
     int inputLatency, outputLatency;
     BigInteger activeInputChans, activeOutputChans;
     StringArray inChanNames, outChanNames;
@@ -742,15 +810,7 @@ private:
     int numInputChans, numOutputChans;
     bool callbacksAllowed;
 
-    struct CallbackDetailsForChannel
-    {
-        int streamNum;
-        int dataOffsetSamples;
-        int dataStrideSamples;
-    };
-
-    int numInputChannelInfos, numOutputChannelInfos;
-    HeapBlock <CallbackDetailsForChannel> inputChannelInfo, outputChannelInfo;
+    Array<CallbackDetailsForChannel> inputChannelInfo, outputChannelInfo;
     HeapBlock <float*> tempInputBuffers, tempOutputBuffers;
 
     //==============================================================================
@@ -853,19 +913,14 @@ public:
         {
             jassert (inputDeviceId != 0);
 
-            device = new CoreAudioInternal (inputDeviceId);
+            device = new CoreAudioInternal (*this, inputDeviceId, false);
         }
         else
         {
-            device = new CoreAudioInternal (outputDeviceId);
+            device = new CoreAudioInternal (*this, outputDeviceId, false);
 
             if (inputDeviceId != 0)
-            {
-                CoreAudioInternal* secondDevice = new CoreAudioInternal (inputDeviceId);
-
-                device->inputDevice = secondDevice;
-                secondDevice->isSlaveDevice = true;
-            }
+                device->inputDevice = new CoreAudioInternal (*this, inputDeviceId, true);
         }
 
         internal = device;
@@ -904,7 +959,7 @@ public:
         return internal->inChanNames;
     }
 
-    bool isOpen()    { return isOpen_; }
+    bool isOpen()                        { return isOpen_; }
 
     int getNumSampleRates()              { return internal->sampleRates.size(); }
     double getSampleRate (int index)     { return internal->sampleRates [index]; }
@@ -948,6 +1003,15 @@ public:
     {
         isOpen_ = false;
         internal->stop (false);
+    }
+
+    void restart()
+    {
+        AudioIODeviceCallback* oldCallback = internal->callback;
+        stop();
+
+        if (oldCallback != nullptr)
+            start (oldCallback);
     }
 
     BigInteger getActiveOutputChannels() const
@@ -1260,10 +1324,12 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CoreAudioIODeviceType)
 };
 
+};
+
 //==============================================================================
 AudioIODeviceType* AudioIODeviceType::createAudioIODeviceType_CoreAudio()
 {
-    return new CoreAudioIODeviceType();
+    return new CoreAudioClasses::CoreAudioIODeviceType();
 }
 
 #undef JUCE_COREAUDIOLOG

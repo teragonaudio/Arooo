@@ -1,24 +1,23 @@
 /*
   ==============================================================================
 
-   This file is part of the JUCE library - "Jules' Utility Class Extensions"
-   Copyright 2004-11 by Raw Material Software Ltd.
+   This file is part of the JUCE library.
+   Copyright (c) 2013 - Raw Material Software Ltd.
 
-  ------------------------------------------------------------------------------
+   Permission is granted to use this software under the terms of either:
+   a) the GPL v2 (or any later version)
+   b) the Affero GPL v3
 
-   JUCE can be redistributed and/or modified under the terms of the GNU General
-   Public License (Version 2), as published by the Free Software Foundation.
-   A copy of the license is included in the JUCE distribution, or can be found
-   online at www.gnu.org/licenses.
+   Details of these licenses can be found at: www.gnu.org/licenses
 
    JUCE is distributed in the hope that it will be useful, but WITHOUT ANY
    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
    A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-  ------------------------------------------------------------------------------
+   ------------------------------------------------------------------------------
 
    To release a closed-source product which uses JUCE, commercial licenses are
-   available: visit www.rawmaterialsoftware.com/juce for more information.
+   available: visit www.juce.com for more information.
 
   ==============================================================================
 */
@@ -101,6 +100,18 @@ bool AudioFormatReader::read (int* const* destSamples,
     return true;
 }
 
+static void readChannels (AudioFormatReader& reader,
+                          int** const chans, AudioSampleBuffer* const buffer,
+                          const int startSample, const int numSamples,
+                          const int64 readerStartSample, const int numTargetChannels)
+{
+    for (int j = 0; j < numTargetChannels; ++j)
+        chans[j] = reinterpret_cast<int*> (buffer->getSampleData (j, startSample));
+
+    chans[numTargetChannels] = nullptr;
+    reader.read (chans, numTargetChannels, readerStartSample, numSamples, true);
+}
+
 void AudioFormatReader::read (AudioSampleBuffer* buffer,
                               int startSample,
                               int numSamples,
@@ -114,49 +125,51 @@ void AudioFormatReader::read (AudioSampleBuffer* buffer,
     if (numSamples > 0)
     {
         const int numTargetChannels = buffer->getNumChannels();
-        int* chans[3];
 
-        if (useReaderLeftChan == useReaderRightChan)
+        if (numTargetChannels <= 2)
         {
-            chans[0] = reinterpret_cast<int*> (buffer->getSampleData (0, startSample));
-            chans[1] = (numChannels > 1 && numTargetChannels > 1) ? reinterpret_cast<int*> (buffer->getSampleData (1, startSample)) : nullptr;
-        }
-        else if (useReaderLeftChan || (numChannels == 1))
-        {
-            chans[0] = reinterpret_cast<int*> (buffer->getSampleData (0, startSample));
-            chans[1] = nullptr;
-        }
-        else if (useReaderRightChan)
-        {
-            chans[0] = nullptr;
-            chans[1] = reinterpret_cast<int*> (buffer->getSampleData (0, startSample));
-        }
+            int* const dest0 = reinterpret_cast<int*> (buffer->getSampleData (0, startSample));
+            int* const dest1 = reinterpret_cast<int*> (numTargetChannels > 1 ? buffer->getSampleData (1, startSample) : nullptr);
+            int* chans[3];
 
-        chans[2] = nullptr;
+            if (useReaderLeftChan == useReaderRightChan)
+            {
+                chans[0] = dest0;
+                chans[1] = numChannels > 1 ? dest1 : nullptr;
+            }
+            else if (useReaderLeftChan || (numChannels == 1))
+            {
+                chans[0] = dest0;
+                chans[1] = nullptr;
+            }
+            else if (useReaderRightChan)
+            {
+                chans[0] = nullptr;
+                chans[1] = dest0;
+            }
 
-        read (chans, 2, readerStartSample, numSamples, true);
+            chans[2] = nullptr;
+            read (chans, 2, readerStartSample, numSamples, true);
+
+            // if the target's stereo and the source is mono, dupe the first channel..
+            if (numTargetChannels > 1 && (chans[0] == nullptr || chans[1] == nullptr))
+                memcpy (dest1, dest0, sizeof (float) * (size_t) numSamples);
+        }
+        else if (numTargetChannels <= 64)
+        {
+            int* chans[65];
+            readChannels (*this, chans, buffer, startSample, numSamples, readerStartSample, numTargetChannels);
+        }
+        else
+        {
+            HeapBlock<int*> chans (numTargetChannels);
+            readChannels (*this, chans, buffer, startSample, numSamples, readerStartSample, numTargetChannels);
+        }
 
         if (! usesFloatingPointData)
-        {
-            for (int j = 0; j < 2; ++j)
-            {
-                if (float* const d = reinterpret_cast <float*> (chans[j]))
-                {
-                    const float multiplier = 1.0f / 0x7fffffff;
-
-                    for (int i = 0; i < numSamples; ++i)
-                        d[i] = *reinterpret_cast<int*> (d + i) * multiplier;
-                }
-            }
-        }
-
-        if (numTargetChannels > 1 && (chans[0] == nullptr || chans[1] == nullptr))
-        {
-            // if this is a stereo buffer and the source was mono, dupe the first channel..
-            memcpy (buffer->getSampleData (1, startSample),
-                    buffer->getSampleData (0, startSample),
-                    sizeof (float) * (size_t) numSamples);
-        }
+            for (int j = 0; j < numTargetChannels; ++j)
+                if (float* const d = buffer->getSampleData (j, startSample))
+                    FloatVectorOperations::convertFixedToFloat (d, reinterpret_cast<const int*> (d), 1.0f / 0x7fffffff, numSamples);
     }
 }
 
@@ -395,7 +408,7 @@ bool MemoryMappedAudioFormatReader::mapEntireFile()
     return mapSectionOfFile (Range<int64> (0, lengthInSamples));
 }
 
-bool MemoryMappedAudioFormatReader::mapSectionOfFile (const Range<int64>& samplesToMap)
+bool MemoryMappedAudioFormatReader::mapSectionOfFile (Range<int64> samplesToMap)
 {
     if (map == nullptr || samplesToMap != mappedSection)
     {
@@ -416,15 +429,12 @@ bool MemoryMappedAudioFormatReader::mapSectionOfFile (const Range<int64>& sample
     return map != nullptr;
 }
 
+static int memoryReadDummyVariable; // used to force the compiler not to optimise-away the read operation
+
 void MemoryMappedAudioFormatReader::touchSample (int64 sample) const noexcept
 {
     if (map != nullptr && mappedSection.contains (sample))
-    {
-        static int dummy = 0; // to force the compiler not to optimise this stuff away
-        dummy += *(int*) sampleToPointer (sample);
-    }
+        memoryReadDummyVariable += *(char*) sampleToPointer (sample);
     else
-    {
         jassertfalse; // you must make sure that the window contains all the samples you're going to attempt to read.
-    }
 }
